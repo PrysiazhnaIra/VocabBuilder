@@ -1,0 +1,127 @@
+/* MacPawFixelDisplay */
+
+@font-face {
+  font-family: "MPFDBold"; /* This is the name I'll use in CSS */
+  src: url("../public/fonts/MacPawFixelDisplay-Bold.otf") format("opentype"); /* The relative path to font file */
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "MPFDExtraBold";
+  src: url("../public/fonts/MacPawFixelDisplay-ExtraBold.otf")
+    format("opentype");
+  font-weight: extra-bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "MPFDLight";
+  src: url("../public/fonts/MacPawFixelDisplay-Light.otf") format("opentype");
+  font-weight: lighter;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "MPFDMedium";
+  src: url("../public/fonts/MacPawFixelDisplay-Medium.otf") format("opentype");
+  font-weight: medium;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "MPFDRegular";
+  src: url("../public/fonts/MacPawFixelDisplay-Regular.otf") format("opentype");
+  font-weight: regular;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "MPFDSemiBold";
+  src: url("../public/fonts/MacPawFixelDisplay-SemiBold.otf") format("opentype");
+  font-weight: semi-bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "MPFDThin";
+  src: url("../public/fonts/MacPawFixelDisplay-Thin.otf") format("opentype");
+  font-weight: thin;
+  font-style: normal;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+
+p:last-child {
+  margin-bottom: 0;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Mobile screen */
+.container {
+  margin: 0 auto;
+  padding-right: 20px;
+  padding-left: 20px;
+  max-width: 375px;
+}
+
+/* Tablet screen */
+@media screen and (min-width: 768px) {
+  .container {
+    padding-right: 32px;
+    padding-left: 32px;
+    max-width: 768px;
+  }
+}
+
+/* Desktop screen */
+@media screen and (min-width: 1440px) {
+  .container {
+    padding-right: 24px;
+    padding-left: 24px;
+    max-width: 1440px;
+  }
+}
+
+button {
+  border: none;
+  cursor: pointer;
+}
