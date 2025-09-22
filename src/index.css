@@ -1,53 +1,73 @@
 /* MacPawFixelDisplay */
 
 @font-face {
-  font-family: "MPFDBold"; /* This is the name I'll use in CSS */
-  src: url("../public/fonts/MacPawFixelDisplay-Bold.otf") format("opentype"); /* The relative path to font file */
-  font-weight: bold;
+  font-family: "MPFD100";
+  src: url("../public/fonts/MacPawFixelDisplay-Thin.otf") format("opentype");
+  font-weight: thin;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "MPFDExtraBold";
-  src: url("../public/fonts/MacPawFixelDisplay-ExtraBold.otf")
-    format("opentype");
-  font-weight: extra-bold;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "MPFDLight";
+  font-family: "MPFD300";
   src: url("../public/fonts/MacPawFixelDisplay-Light.otf") format("opentype");
   font-weight: lighter;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "MPFDMedium";
-  src: url("../public/fonts/MacPawFixelDisplay-Medium.otf") format("opentype");
-  font-weight: medium;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "MPFDRegular";
+  font-family: "MPFD400";
   src: url("../public/fonts/MacPawFixelDisplay-Regular.otf") format("opentype");
   font-weight: regular;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "MPFDSemiBold";
+  font-family: "MPFD500";
+  src: url("../public/fonts/MacPawFixelDisplay-Medium.otf") format("opentype");
+  font-weight: medium;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "MPFD600";
   src: url("../public/fonts/MacPawFixelDisplay-SemiBold.otf") format("opentype");
   font-weight: semi-bold;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "MPFDThin";
-  src: url("../public/fonts/MacPawFixelDisplay-Thin.otf") format("opentype");
-  font-weight: thin;
+  font-family: "MPFD700"; /* This is the name I'll use in CSS */
+  src: url("../public/fonts/MacPawFixelDisplay-Bold.otf") format("opentype"); /* The relative path to font file */
+  font-weight: bold;
   font-style: normal;
+}
+
+@font-face {
+  font-family: "MPFD800";
+  src: url("../public/fonts/MacPawFixelDisplay-ExtraBold.otf")
+    format("opentype");
+  font-weight: extra-bold;
+  font-style: normal;
+}
+
+:root {
+  --white: #fff;
+  --whiteF8: #f8f8f8;
+  --whiteFc: #fcfcfc;
+  --black: #121417;
+  --black-text: rgba(18, 20, 23, 0.8);
+  --intense-green: #85aa9f;
+  --light-green: #a5c0b8;
+  --spring-green: #3cbf61;
+  --spring-intense-green: #2bd627;
+  --spring-light-green: #d4f8d3;
+  --light-grey: rgba(18, 20, 23, 0.5);
+  --border-grey: rgba(18, 20, 23, 0.1);
+  --border-green: 1px solid #85aa9f;
+  --border-red: 1px solid #d80027;
+  --border-tab: 1px solid #dbdbdb;
+  --border-button: 1px solid rgba(18, 20, 23, 0.1);
+  --icon-fill: rgba(252, 252, 252, 0.7);
 }
 
 html {
@@ -59,6 +79,7 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
+  background-color: var(--whiteF8);
 }
 
 h1,
@@ -85,14 +106,16 @@ a {
   text-decoration: none;
 }
 
-button {
-  cursor: pointer;
-}
-
 img {
   display: block;
   max-width: 100%;
   height: auto;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
 }
 
 /* Mobile screen */
@@ -121,7 +144,27 @@ img {
   }
 }
 
+h2 {
+  font-family: "MPFD600", sans-serif;
+  color: var(--black);
+}
+
 button {
-  border: none;
-  cursor: pointer;
+  font-family: "MPFD700", sans-serif;
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+p {
+  font-family: "MPFD400", sans-serif;
+  font-size: 20px;
+  line-height: 1.6;
+  color: var(--black-text);
+}
+
+::placeholder {
+  font-family: "MPFD400", sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--light-grey);
 }

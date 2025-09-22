@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://lingo-70ed2.web.app//sitemap.xml
