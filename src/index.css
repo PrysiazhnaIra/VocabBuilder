@@ -104,6 +104,7 @@ ul {
 
 a {
   text-decoration: none;
+  color: inherit;
 }
 
 img {
@@ -156,9 +157,9 @@ button {
 }
 
 p {
-  font-family: "MPFD400", sans-serif;
-  font-size: 20px;
-  line-height: 1.6;
+  font-family: "MPFD500", sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
   color: var(--black-text);
 }
 
@@ -167,4 +168,10 @@ p {
   font-size: 16px;
   line-height: 1.5;
   color: var(--light-grey);
+}
+
+@media screen and (min-width: 768px) {
+  p {
+    font-size: 20px;
+  }
 }

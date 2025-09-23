@@ -1,0 +1,24 @@
+.logOutBtn {
+  display: none;
+}
+
+.logOutText {
+  color: var(--black);
+  font-family: "MPFD500", sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.logOutIcon {
+  stroke: var(--black);
+}
+
+@media screen and (min-width: 1440px) {
+  .logOutBtn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+}

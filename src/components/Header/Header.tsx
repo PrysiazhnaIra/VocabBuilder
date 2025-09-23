@@ -1,13 +1,45 @@
 import Icon from "../Icon/Icon";
+import LogoutBtn from "../LogoutBtn/LogoutBtn";
+import NavItem from "../NavItem/NavItem";
 import s from "./Header.module.css";
+import { Link } from "react-router-dom";
 
 export default function Header() {
   return (
-    <header className={s.header}>
-      <div className={s.logoWrapper}>
-        <Icon name="icon-logo" width={40} height={40} className={s.icon} />
-        <h1 className={s.logoText}>VocabBuilder</h1>
-      </div>
+    <header>
+      <nav className={s.header}>
+        <Link to="/" className={s.logoWrapper}>
+          <Icon name="icon-logo" className={s.logoIcon} />
+          <span className={s.logoText}>VocabBuilder</span>
+        </Link>
+
+        <ul className={s.navLinks}>
+          <NavItem to="/dictionary" text="Dictionary" />
+          <NavItem to="/recommend" text="Recommend" />
+          <NavItem to="/training" text="Training" />
+        </ul>
+
+        <div className={s.rightSide}>
+          <div className={s.userMenuWrapper}>
+            <p>Name</p>
+            <div className={s.userIconWrapper}>
+              <Icon
+                name="icon-user"
+                width={20}
+                height={20}
+                className={s.userIcon}
+              />
+            </div>
+            <Icon
+              name="icon-Nav"
+              width={32}
+              height={32}
+              className={s.navIcon}
+            />
+          </div>
+          <LogoutBtn />
+        </div>
+      </nav>
     </header>
   );
 }

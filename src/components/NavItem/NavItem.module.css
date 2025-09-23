@@ -1,0 +1,9 @@
+.activeLink {
+  color: var(--whiteFc);
+  background-color: var(--intense-green);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 20px;
+  border-radius: 15px;
+}
