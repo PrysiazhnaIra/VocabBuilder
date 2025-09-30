@@ -1,0 +1,23 @@
+.block {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.title {
+  color: var(--black);
+  font-size: 40px;
+  font-style: normal;
+  margin-bottom: 40px;
+}
+
+.btn {
+  padding: 16px 150px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 30px;
+  background: var(--intense-green);
+  color: var(--whiteFc);
+}
