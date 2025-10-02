@@ -68,6 +68,11 @@
   --border-tab: 1px solid #dbdbdb;
   --border-button: 1px solid rgba(18, 20, 23, 0.1);
   --icon-fill: rgba(252, 252, 252, 0.7);
+  --background-green: rgba(133, 170, 159, 0.1);
+}
+
+* {
+  box-sizing: border-box;
 }
 
 html {
@@ -119,6 +124,27 @@ button {
   background: none;
 }
 
+input {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  box-shadow: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  transition: background-color 9999s ease-out;
+  -webkit-transition: background-color 9999s ease-out;
+  box-shadow: 0 0 0px 1000px transparent inset !important;
+  box-shadow: 0 0 0px 1000px var(--input-background-color) inset !important;
+}
+
 /* Mobile screen */
 .container {
   margin: 0 auto;
@@ -150,24 +176,11 @@ h2 {
   color: var(--black);
 }
 
-button {
-  font-family: "MPFD700", sans-serif;
-  font-size: 18px;
-  line-height: 1.6;
-}
-
 p {
   font-family: "MPFD500", sans-serif;
   font-size: 16px;
   line-height: 1.5;
   color: var(--black-text);
-}
-
-::placeholder {
-  font-family: "MPFD400", sans-serif;
-  font-size: 16px;
-  line-height: 1.5;
-  color: var(--light-grey);
 }
 
 @media screen and (min-width: 768px) {
