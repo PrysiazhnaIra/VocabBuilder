@@ -1,11 +1,12 @@
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../Button/Button";
-import InputField from "../InputField/InputField";
-import PasswordInput from "../PasswordInput/PasswordInput";
+import InputField from "../Inputs/InputField";
+import PasswordInput from "../Inputs/PasswordInput";
 import { useForm } from "react-hook-form";
 import type { User } from "../../types/types";
 import { registerSchema } from "../../validation/authShemas";
 import { yupResolver } from "@hookform/resolvers/yup";
+import s from "./RegisterForm.module.css";
 
 export default function RegisterForm() {
   const navigate = useNavigate();
@@ -30,37 +31,32 @@ export default function RegisterForm() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <InputField
-        label="Name"
-        name="name"
-        register={register("name")}
-        error={
-          typeof errors.email?.message === "string"
-            ? errors.email.message
-            : undefined
-        }
-      />
-      <InputField
-        label="Email"
-        name="email"
-        type="email"
-        register={register("email")}
-        error={
-          typeof errors.email?.message === "string"
-            ? errors.email.message
-            : undefined
-        }
-      />
-      <PasswordInput
-        label="Password"
-        name="password"
-        register={register("password")}
-        error={errors.password?.message}
-      />
-      <Button type="submit">Register</Button>
-      <Button type="button">
-        <Link to="/login">Login</Link>
-      </Button>
+      <div className={s.inputWrapper}>
+        <InputField
+          name="name"
+          register={register("name")}
+          error={errors.name?.message}
+        />
+        <InputField
+          name="email"
+          type="email"
+          register={register("email")}
+          error={errors.email?.message}
+        />
+        <PasswordInput
+          name="password"
+          register={register("password")}
+          error={errors.password?.message}
+        />
+      </div>
+      <div className={s.btnWrapper}>
+        <Button type="submit" className={s.btnActive}>
+          Register
+        </Button>
+        <Link to="/login" className={s.toggleLink}>
+          Login
+        </Link>
+      </div>
     </form>
   );
 }

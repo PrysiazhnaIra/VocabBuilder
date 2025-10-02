@@ -1,11 +1,12 @@
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../Button/Button";
-import InputField from "../InputField/InputField";
-import PasswordInput from "../PasswordInput/PasswordInput";
+import InputField from "../Inputs/InputField";
+import PasswordInput from "../Inputs/PasswordInput";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { loginSchema } from "../../validation/authShemas";
 import type { User } from "../../types/types";
+import s from "./LoginForm.module.css";
 
 export default function LoginForm() {
   const navigate = useNavigate();
@@ -28,23 +29,28 @@ export default function LoginForm() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <InputField
-        label="Email"
-        name="email"
-        type="email"
-        register={register("password")}
-        error={errors.password?.message}
-      />
-      <PasswordInput
-        label="Password"
-        name="password"
-        register={register("password")}
-        error={errors.password?.message}
-      />
-      <Button type="submit">Login</Button>
-      <Button type="button">
-        <Link to="/register">Register</Link>
-      </Button>
+      <div className={s.inputWrapper}>
+        <InputField
+          name="email"
+          type="email"
+          register={register("email")}
+          error={errors.email?.message}
+        />
+        <PasswordInput
+          name="password"
+          register={register("password")}
+          error={errors.password?.message}
+        />
+      </div>
+
+      <div className={s.btnWrapper}>
+        <Button type="submit" className={s.btnActive}>
+          Login
+        </Button>
+        <Link to="/register" className={s.toggleLink}>
+          Register
+        </Link>
+      </div>
     </form>
   );
 }

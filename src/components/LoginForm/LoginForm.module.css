@@ -1,0 +1,47 @@
+.inputWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+  margin-bottom: 32px;
+}
+
+.btnActive {
+  display: inline-flex;
+  padding: 16px 139px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 30px;
+  background: var(--intense-green);
+  color: #fcfcfc;
+  font-family: "MPFD700";
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.toggleLink {
+  color: var(--light-grey);
+  font-family: "MPFD700";
+  font-size: 16px;
+  line-height: 1.5;
+  text-decoration-line: underline;
+  text-decoration-style: solid;
+  text-decoration-skip-ink: none;
+  text-decoration-thickness: auto;
+  text-underline-offset: auto;
+  text-underline-position: from-font;
+}
+
+.btnWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+@media screen and (min-width: 768px) {
+  .inputWrapper {
+    gap: 18px;
+  }
+}
