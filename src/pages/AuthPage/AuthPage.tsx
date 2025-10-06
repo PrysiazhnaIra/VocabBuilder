@@ -6,7 +6,6 @@ import InfoRow from "../../components/InfoRow/InfoRow";
 export default function AuthPage() {
   const location = useLocation();
   const isRegister = location.pathname.includes("/register");
-  //   const infoRow = !isRegister ? <InfoRow /> : null;
   const title = isRegister ? "Register" : "Login";
   const description = isRegister
     ? "To start using our services, please fill out the registration form below. All fields are mandatory:"
