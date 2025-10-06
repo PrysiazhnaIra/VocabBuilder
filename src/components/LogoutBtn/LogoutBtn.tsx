@@ -1,12 +1,18 @@
 import Icon from "../Icon/Icon";
 import s from "./LogoutBtn.module.css";
 
-export default function LogoutBtn() {
+interface LogoutBtnProps {
+  className?: string;
+}
+
+export default function LogoutBtn({ className, ...props }: LogoutBtnProps) {
+  const buttonClasses = `${s.logOutBtn} ${className ? className : ""}`;
+
   const handleLogOut = () => {
     console.log("Log out");
   };
   return (
-    <button className={s.logOutBtn} onClick={handleLogOut}>
+    <button className={buttonClasses} onClick={handleLogOut}>
       <span className={s.logOutText}>Log out</span>
       <Icon
         name="icon-arrow-right"

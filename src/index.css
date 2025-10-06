@@ -69,6 +69,7 @@
   --border-button: 1px solid rgba(18, 20, 23, 0.1);
   --icon-fill: rgba(252, 252, 252, 0.7);
   --background-green: rgba(133, 170, 159, 0.1);
+  --background-grey: rgba(18, 20, 23, 0.2);
 }
 
 * {

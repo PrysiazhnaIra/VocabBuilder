@@ -1,0 +1,95 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--background-grey);
+  z-index: 999;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 185px;
+  height: 100%;
+  padding: 16px 16px 0px 16px;
+  background-color: var(--intense-green);
+  transition: transform 0.3s ease-out;
+  z-index: 1000;
+  transform: translateX(-100%);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.sidebar.open {
+  transform: translateX(0);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--whiteFc);
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.userIconWrapper {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: var(--whiteFc);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.userIcon {
+  width: 20px;
+  height: 20px;
+  fill: var(--intense-green);
+}
+
+.closeBtn {
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  color: var(--whiteFc);
+}
+
+.navList {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  color: var(--whiteFc);
+  font-family: "MPFD500";
+  font-size: 14px;
+}
+
+.activeLink {
+  display: flex;
+  padding: 12px 20px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 15px;
+  background-color: var(--whiteFc);
+  color: var(--black);
+}
+
+.logOutBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  color: var(--whiteFc);
+  stroke: var(--whiteFc);
+}
