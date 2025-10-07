@@ -7,9 +7,18 @@ import type { User } from "../../types/types";
 import { registerSchema } from "../../validation/authShemas";
 import { yupResolver } from "@hookform/resolvers/yup";
 import s from "./RegisterForm.module.css";
+import { useRegisterMutation } from "../../redux/api/authApi";
+
+type AuthResponse = {
+  email: string;
+  name: string;
+  token: string;
+};
 
 export default function RegisterForm() {
   const navigate = useNavigate();
+  const [registerUser, { isLoading }] = useRegisterMutation();
+
   const {
     register,
     handleSubmit,
@@ -18,11 +27,11 @@ export default function RegisterForm() {
     resolver: yupResolver(registerSchema),
   });
 
-  const onSubmit = (data: User) => {
-    console.log("My data:", data);
-
+  const onSubmit = async (data: User) => {
     try {
-      console.log("Register success:", data);
+      const result: AuthResponse = await registerUser(data).unwrap();
+
+      console.log("Register success:", result);
       navigate("/dictionary");
     } catch (error) {
       console.error("Registration failed:", error);
@@ -50,8 +59,8 @@ export default function RegisterForm() {
         />
       </div>
       <div className={s.btnWrapper}>
-        <Button type="submit" className={s.btnActive}>
-          Register
+        <Button type="submit" className={s.btnActive} disabled={isLoading}>
+          {isLoading ? "Registering..." : "Register"}
         </Button>
         <Link to="/login" className={s.toggleLink}>
           Login

@@ -1,12 +1,8 @@
-import { useState } from "react";
+import { useAppSelector } from "./reduxHooks";
 
 export const useAuth = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
+  const token = useAppSelector((state) => state.auth.token);
 
-  return {
-    isLoggedIn,
-
-    login: () => setIsLoggedIn(true),
-    logout: () => setIsLoggedIn(false),
-  };
+  return { isLoggedIn, token };
 };
