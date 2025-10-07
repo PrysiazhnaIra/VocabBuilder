@@ -7,9 +7,11 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { loginSchema } from "../../validation/authShemas";
 import type { User } from "../../types/types";
 import s from "./LoginForm.module.css";
+import { useLoginMutation } from "../../redux/api/authApi";
 
 export default function LoginForm() {
   const navigate = useNavigate();
+  const [loginUser, { isLoading }] = useLoginMutation();
   const {
     register,
     handleSubmit,
@@ -20,6 +22,7 @@ export default function LoginForm() {
 
   const onSubmit = async (data: User) => {
     try {
+      await loginUser(data).unwrap();
       console.log("Login success:", data);
       navigate("/dictionary");
     } catch (error) {
@@ -44,8 +47,8 @@ export default function LoginForm() {
       </div>
 
       <div className={s.btnWrapper}>
-        <Button type="submit" className={s.btnActive}>
-          Login
+        <Button type="submit" className={s.btnActive} disabled={isLoading}>
+          {isLoading ? "Logining..." : "Login"}
         </Button>
         <Link to="/register" className={s.toggleLink}>
           Register
