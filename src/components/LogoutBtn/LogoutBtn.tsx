@@ -2,6 +2,7 @@ import Icon from "../Icon/Icon";
 import s from "./LogoutBtn.module.css";
 import { useLogoutMutation } from "../../redux/api/authApi";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 interface LogoutBtnProps {
   className?: string;
 }
@@ -15,9 +16,10 @@ export default function LogoutBtn({ className, ...props }: LogoutBtnProps) {
     try {
       await logoutUser({}).unwrap();
 
-      console.log("Logout successful");
+      toast.success("You have been logged out successfully.");
       navigate("/login");
     } catch (error) {
+      toast.error("Logout failed. Please try again.");
       console.error("Logout failed, but clearing session locally:", error);
       navigate("/login");
     }

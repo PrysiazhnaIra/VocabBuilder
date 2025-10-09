@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 const baseQuery = fetchBaseQuery({
   baseUrl: "https://vocab-builder-backend.p.goit.global/api",
   prepareHeaders: (headers, { getState }) => {
-    const token = getState().auth.token;
+    const token = (getState as () => { auth: { token?: string } })().auth.token;
 
     if (token) {
       headers.set("Authorization", `Bearer ${token}`);

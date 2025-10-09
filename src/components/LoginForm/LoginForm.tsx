@@ -8,6 +8,7 @@ import { loginSchema } from "../../validation/authShemas";
 import type { User } from "../../types/types";
 import s from "./LoginForm.module.css";
 import { useLoginMutation } from "../../redux/api/authApi";
+import { toast } from "react-toastify";
 
 export default function LoginForm() {
   const navigate = useNavigate();
@@ -23,9 +24,10 @@ export default function LoginForm() {
   const onSubmit = async (data: User) => {
     try {
       await loginUser(data).unwrap();
-      console.log("Login success:", data);
+      toast.success("Login successful! Welcome back.");
       navigate("/dictionary");
     } catch (error) {
+      toast.error("Login failed. Please check your credentials and try again.");
       console.error("Login failed:", error);
     }
   };
