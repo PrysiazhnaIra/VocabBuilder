@@ -8,12 +8,8 @@ import { registerSchema } from "../../validation/authShemas";
 import { yupResolver } from "@hookform/resolvers/yup";
 import s from "./RegisterForm.module.css";
 import { useRegisterMutation } from "../../redux/api/authApi";
-
-type AuthResponse = {
-  email: string;
-  name: string;
-  token: string;
-};
+import { toast } from "react-toastify";
+import { getErrorMessage } from "../../utils/errorParser";
 
 export default function RegisterForm() {
   const navigate = useNavigate();
@@ -29,12 +25,13 @@ export default function RegisterForm() {
 
   const onSubmit = async (data: User) => {
     try {
-      const result: AuthResponse = await registerUser(data).unwrap();
-
-      console.log("Register success:", result);
+      await registerUser(data).unwrap();
+      toast.success("Registration successful! Welcome aboard.");
       navigate("/dictionary");
     } catch (error) {
-      console.error("Registration failed:", error);
+      const message = getErrorMessage(error);
+      toast.error(message);
+      console.error("Registration failed:", message);
     }
   };
 

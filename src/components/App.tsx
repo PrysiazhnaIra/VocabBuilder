@@ -12,11 +12,17 @@ import PrivateRoute from "./Routes/PrivateRoute";
 import AuthPage from "../pages/AuthPage/AuthPage";
 import RegisterForm from "./RegisterForm/RegisterForm";
 import LoginForm from "./LoginForm/LoginForm";
+import { ToastContainer } from "react-toastify";
 
 export default function App() {
   const { isLoggedIn } = useAuth();
   return (
     <Suspense fallback={<div>Loading...</div>}>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+      />
       <Header isLoggedIn={isLoggedIn} />
       <main>
         <Routes>
