@@ -5,21 +5,34 @@ const initialState = {
   user: { name: null, email: null },
   token: null,
   isLoggedIn: false,
-  isRefreshing: false,
-  isAuthLoaded: false,
 };
+
+interface RehydratePayload {
+  token: string | null;
+}
 
 const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
     setToken: (state, action) => {
-      state.token = action.payload;
-      state.isLoggedIn = !!action.payload;
+      state.token = action.payload.token;
+      state.user = action.payload.user;
+      state.isLoggedIn = true;
     },
   },
   extraReducers: (builder) => {
     builder
+      .addCase("persist/REHYDRATE", (state, action) => {
+        const rehydrateAction = action as unknown as {
+          payload: RehydratePayload;
+        };
+
+        const persistedToken = rehydrateAction.payload?.token;
+        if (persistedToken) {
+          state.isLoggedIn = true;
+        }
+      })
       .addMatcher(
         authApi.endpoints.register.matchFulfilled,
         (state, { payload }) => {
