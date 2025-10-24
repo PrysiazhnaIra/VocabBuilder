@@ -1,0 +1,7 @@
+.dashboardWrap {
+  background-color: var(--background-light-grey);
+  padding: 32px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
