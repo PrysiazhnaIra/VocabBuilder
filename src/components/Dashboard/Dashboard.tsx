@@ -1,47 +1,16 @@
-import { useEffect } from "react";
-import { useAppSelector } from "../../hooks/reduxHooks";
-import { useGetCategoriesQuery } from "../../redux/api/wordApi";
-import { selectAuthStatus } from "../../redux/auth/authSelectors";
+import s from "./Dashboard.module.css";
+import Filters from "../Filters/Filters";
+import Statistics from "../Statistics/Statistics";
+import AddWordBtn from "../AddWordBtn/AddWordBtn";
+import { Link } from "react-router-dom";
 
 export default function Dashboard() {
-  const { isLoggedIn } = useAppSelector(selectAuthStatus);
-
-  const {
-    data: categories,
-    isLoading,
-    isError,
-  } = useGetCategoriesQuery(undefined, {
-    skip: !isLoggedIn,
-  });
-
-  useEffect(() => {
-    console.log("Categories data:", categories);
-  }, [categories]);
-
-  if (!isLoggedIn) {
-    return <div>Access Denied or Loading Authentication...</div>;
-  }
-
-  if (isLoading) {
-    return <div>Loading categories...</div>;
-  }
-
-  if (isError) {
-    return <div>Failed to load categories. Please try again later.</div>;
-  }
-
   return (
-    <div>
-      <h2>Dashboard</h2>
-      <select>
-        {" "}
-        <option value="">Select Category</option>
-        {categories?.map((category) => (
-          <option key={category} value={category}>
-            {category}
-          </option>
-        ))}
-      </select>
+    <div className={s.dashboardWrap}>
+      <Filters />
+      <Statistics />
+      <AddWordBtn />
+      <Link to="/training">Train oneself</Link>
     </div>
   );
 }

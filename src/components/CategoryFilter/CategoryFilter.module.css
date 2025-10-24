@@ -1,0 +1,30 @@
+.categoryFilter {
+  position: relative;
+}
+
+.categorySelect {
+  padding: 12px 24px;
+  border: var(--border-button);
+  border-radius: 15px;
+  font-size: 15px;
+  color: var(--black);
+  background-color: transparent;
+  outline: none;
+  transition: all 0.2s ease;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+  cursor: pointer;
+  width: 100%;
+
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.iconDown {
+  position: absolute;
+  right: 50px;
+  top: 15px;
+  color: black;
+}
