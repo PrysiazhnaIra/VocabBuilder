@@ -4,10 +4,26 @@ import Statistics from "../Statistics/Statistics";
 import AddWordBtn from "../AddWordBtn/AddWordBtn";
 import { Link } from "react-router-dom";
 
-export default function Dashboard() {
+interface DashboardProps {
+  searchTerm: string;
+  onSearchChange: (newSearchTerm: string) => void;
+  selectedCategory: string;
+  onCategoryChange: (newCategory: string) => void;
+}
+export default function Dashboard({
+  onSearchChange,
+  searchTerm,
+  selectedCategory,
+  onCategoryChange,
+}: DashboardProps) {
   return (
     <div className={s.dashboardWrap}>
-      <Filters />
+      <Filters
+        onSearchChange={onSearchChange}
+        searchTerm={searchTerm}
+        selectedCategory={selectedCategory}
+        onCategoryChange={onCategoryChange}
+      />
       <Statistics />
       <AddWordBtn />
       <Link to="/training">Train oneself</Link>

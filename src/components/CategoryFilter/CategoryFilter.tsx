@@ -1,14 +1,17 @@
-import { useEffect, useState } from "react";
-
 import { selectAuthStatus } from "../../redux/auth/authSelectors";
 import { useGetCategoriesQuery } from "../../redux/api/wordApi";
 import { useAppSelector } from "../../hooks/reduxHooks";
 import s from "./CategoryFilter.module.css";
 import Icon from "../Icon/Icon";
 
-export default function CategoryFilter() {
-  const [selectedCategory, setSelectedCategory] =
-    useState<string>("Categories");
+interface CategoryFilterProps {
+  selectedCategory: string;
+  onCategoryChange: (newCategory: string) => void;
+}
+export default function CategoryFilter({
+  selectedCategory,
+  onCategoryChange,
+}: CategoryFilterProps) {
   const { isLoggedIn } = useAppSelector(selectAuthStatus);
 
   const {
@@ -18,10 +21,6 @@ export default function CategoryFilter() {
   } = useGetCategoriesQuery(undefined, {
     skip: !isLoggedIn,
   });
-
-  useEffect(() => {
-    console.log("Categories data:", categories);
-  }, [categories]);
 
   if (!isLoggedIn) {
     return <div>Access Denied or Loading Authentication...</div>;
@@ -40,8 +39,11 @@ export default function CategoryFilter() {
         name="category"
         className={s.categorySelect}
         value={selectedCategory}
-        onChange={(e) => setSelectedCategory(e.target.value)}
+        onChange={(e) => onCategoryChange(e.target.value)}
       >
+        <option key="all" value="all" className={s.categoryOption}>
+          Categories
+        </option>
         {categories?.map((category) => (
           <option key={category} value={category} className={s.categoryOption}>
             {category.charAt(0).toUpperCase() + category.slice(1)}
