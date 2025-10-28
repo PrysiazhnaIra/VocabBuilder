@@ -1,17 +1,22 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
-import type { CategoriesResponse } from "../../types/types";
+import type { AllWords, CategoriesResponse } from "../../types/types";
 import { baseQueryWithAuth } from "./baseQuery";
 
 export const wordApi = createApi({
   reducerPath: "wordApi",
   baseQuery: baseQueryWithAuth,
-  tagTypes: ["Categories"],
+  tagTypes: ["Categories", "Words"],
   endpoints: (builder) => ({
     getCategories: builder.query<CategoriesResponse, void>({
       query: () => "/words/categories",
       providesTags: ["Categories"],
     }),
+
+    getWords: builder.query<AllWords, void>({
+      query: () => "/words/all",
+      providesTags: ["Words"],
+    }),
   }),
 });
 
-export const { useGetCategoriesQuery } = wordApi;
+export const { useGetCategoriesQuery, useGetWordsQuery } = wordApi;

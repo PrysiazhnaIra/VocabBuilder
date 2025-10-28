@@ -8,22 +8,26 @@ export interface User {
 type Category = string;
 export type CategoriesResponse = Category[];
 
-export interface NewWord {
+export interface Word {
+  _id?: string;
   en: string;
   ua: string;
   category: string;
-  isIrregular: boolean;
-}
-
-export interface Word extends NewWord {
-  _id: string;
+  isIrregular?: boolean;
   owner?: string;
   progress?: number;
 }
 
 export interface AllWords {
   results: Word[];
-  totalPages: number;
-  page: number;
-  perPage: number;
+  totalPages?: number;
+  page?: number;
+  perPage?: number;
+}
+
+export interface GetWordsParams {
+  page?: number;
+  limit?: number;
+  category?: string;
+  keyword?: string;
 }
