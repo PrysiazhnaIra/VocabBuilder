@@ -4,6 +4,7 @@ import WordsPagination from "../../components/WordsPagination/WordsPagination";
 import WordsTable from "../../components/WordsTable/WordsTable";
 import useDebounce from "../../hooks/useDebounce";
 import { useGetWordsQuery } from "../../redux/api/wordApi";
+import s from "./DictionaryPage.module.css";
 
 export default function DictionaryPage() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -40,18 +41,18 @@ export default function DictionaryPage() {
     setCurrentPage(1);
   };
 
+  const wordsList = allWords?.results || [];
+
   return (
-    <>
+    <div className={s.container}>
       <Dashboard
         onSearchChange={handleSearchChange}
         searchTerm={searchTerm}
         selectedCategory={selectedCategory}
         onCategoryChange={handleCategoryChange}
       />
-      {/* <WordsTable /> */}
-      {isLoading && <div>Завантаження слів...</div>}
-      {isError && <div>Помилка завантаження!</div>}
-      <WordsPagination />
-    </>
+      <WordsTable words={wordsList} isLoading={isLoading} />
+      <WordsPagination totalPages={allWords?.totalPages || 1} />
+    </div>
   );
 }

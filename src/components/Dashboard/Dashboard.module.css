@@ -1,7 +1,45 @@
 .dashboardWrap {
   background-color: var(--background-light-grey);
-  padding: 32px 16px;
   display: flex;
   flex-direction: column;
   gap: 8px;
+}
+
+.actionsWrapper {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--black);
+}
+
+.trainLink {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.arrowIcon {
+  stroke: var(--intense-green);
+  width: 20px;
+  height: 20px;
+}
+
+@media screen and (min-width: 768px) {
+  .statisticActionsRow {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .dashboardWrap {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
 }

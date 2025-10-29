@@ -12,6 +12,7 @@
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
     "@reduxjs/toolkit": "^2.9.0",
+    "@tanstack/react-table": "^8.21.3",
     "@types/yup": "^0.29.14",
     "axios": "^1.12.2",
     "dom": "^0.0.3",
