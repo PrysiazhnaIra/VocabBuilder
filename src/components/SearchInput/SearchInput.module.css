@@ -40,3 +40,13 @@
   top: 15px;
   color: black;
 }
+
+@media screen and (min-width: 768px) {
+  .inputWrapper {
+    width: 274px;
+  }
+
+  .searchIcon {
+    right: 30px;
+  }
+}
