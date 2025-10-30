@@ -10,28 +10,63 @@ import type { ColumnDef } from "@tanstack/react-table";
 import s from "./WordsTable.module.css";
 import ActionsBtn from "../ActionsBtn/ActionsBtn";
 import { useMemo } from "react";
+import Icon from "../Icon/Icon";
 
 interface WordsTableProps {
   words: Word[];
   isLoading: boolean;
 }
 
+const capitalizeFirstLetter = (str: string): string => {
+  if (!str) return str;
+  return str.charAt(0).toUpperCase() + str.slice(1);
+};
+
 const columnHelper = createColumnHelper<Word>();
 
 const columnsDefinition = [
   columnHelper.accessor("en", {
-    header: () => "Word",
-    cell: (info) => info.getValue(),
+    header: () => (
+      <div className={s.headBlock}>
+        Word
+        <Icon
+          name="icon-united-kingdom"
+          width={28}
+          height={28}
+          className={s.flagIcon}
+        />
+      </div>
+    ),
+    cell: (info) => {
+      const value = info.getValue();
+      return capitalizeFirstLetter(value);
+    },
     id: "en",
   }),
   columnHelper.accessor("ua", {
-    header: () => "Translation",
-    cell: (info) => info.getValue(),
+    header: () => (
+      <div className={s.headBlock}>
+        Translation
+        <Icon
+          name="icon-ukraine"
+          width={28}
+          height={28}
+          className={s.flagIcon}
+        />
+      </div>
+    ),
+    cell: (info) => {
+      const value = info.getValue();
+      return capitalizeFirstLetter(value);
+    },
     id: "ua",
   }),
   columnHelper.accessor("category", {
     header: "Category",
-    cell: (info) => info.getValue(),
+    cell: (info) => {
+      const value = info.getValue();
+      return capitalizeFirstLetter(value);
+    },
     id: "category",
   }),
   columnHelper.display({
@@ -44,9 +79,9 @@ const columnsDefinition = [
   }),
   columnHelper.display({
     id: "actions",
-    header: () => "Actions",
+    header: () => "",
     cell: (props) => {
-      const wordId = props.row.original._id;
+      const wordId = props.row.original._id || props.row.original.id;
       if (!wordId) return null;
       return <ActionsBtn wordId={wordId} />;
     },
@@ -72,12 +107,15 @@ export default function WordsTable({ words, isLoading }: WordsTableProps) {
 
   return (
     <div className={s.wrapper}>
-      <table>
-        <thead>
+      <table className={s.table}>
+        <thead className={s.head}>
           {table.getHeaderGroups().map((headerGroup) => (
-            <tr key={headerGroup.id}>
+            <tr key={headerGroup.id} className={s.row}>
               {headerGroup.headers.map((header) => (
-                <th key={header.id}>
+                <th
+                  key={header.id}
+                  className={`${s.cell} ${header.column.id === "category" ? s.categoryCell : ""}`}
+                >
                   {header.isPlaceholder
                     ? null
                     : flexRender(
@@ -89,11 +127,14 @@ export default function WordsTable({ words, isLoading }: WordsTableProps) {
             </tr>
           ))}
         </thead>
-        <tbody>
+        <tbody className={s.tabBody}>
           {table.getRowModel().rows.map((row) => (
             <tr key={row.id}>
               {row.getVisibleCells().map((cell) => (
-                <td key={cell.id}>
+                <td
+                  key={cell.id}
+                  className={`${s.wordCell} ${cell.column.id === "category" ? s.categoryCell : ""}`}
+                >
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
                 </td>
               ))}

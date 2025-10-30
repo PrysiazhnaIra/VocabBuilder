@@ -10,6 +10,7 @@ export type CategoriesResponse = Category[];
 
 export interface Word {
   _id?: string;
+  id?: string;
   en: string;
   ua: string;
   category: string;
