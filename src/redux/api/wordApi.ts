@@ -16,7 +16,19 @@ export const wordApi = createApi({
       query: () => "/words/all",
       providesTags: ["Words"],
     }),
+
+    deleteWord: builder.mutation<void, string>({
+      query: (wordId) => ({
+        url: `/words/delete/${wordId}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Words"],
+    }),
   }),
 });
 
-export const { useGetCategoriesQuery, useGetWordsQuery } = wordApi;
+export const {
+  useGetCategoriesQuery,
+  useGetWordsQuery,
+  useDeleteWordMutation,
+} = wordApi;

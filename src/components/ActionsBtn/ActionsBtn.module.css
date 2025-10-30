@@ -1,0 +1,44 @@
+.wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.dotsButton {
+  padding: 4px;
+  line-height: 0;
+}
+
+.dropdownMenu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: 100;
+
+  background-color: var(--white);
+  border: var(--border-grey);
+  border-radius: 8px;
+  box-shadow: 0 4px 47px 0 rgba(18, 20, 23, 0.08);
+  padding: 12px 24px;
+  display: flex;
+  flex-direction: column;
+  font-family: MPFD500;
+  font-size: 14px;
+  color: var(--black);
+}
+
+.menuItem {
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.icon {
+  stroke: var(--intense-green);
+  fill: var(--whiteFc);
+}
