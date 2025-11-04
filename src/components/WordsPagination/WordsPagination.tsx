@@ -3,6 +3,5 @@ export default function WordsPagination({
 }: {
   totalPages: number;
 }) {
-  console.log("totalPage", totalPages);
-  return <div>WordsPagination Component</div>;
+  return <div>WordsPagination Component {totalPages}</div>;
 }

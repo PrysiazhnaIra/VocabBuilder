@@ -81,9 +81,10 @@ const columnsDefinition = [
     id: "actions",
     header: () => "",
     cell: (props) => {
-      const wordId = props.row.original._id || props.row.original.id;
-      if (!wordId) return null;
-      return <ActionsBtn wordId={wordId} />;
+      const wordForEdit = props.row.original;
+
+      // if (!wordForEdit) return null;
+      return <ActionsBtn wordData={wordForEdit} />;
     },
   }),
 ];
