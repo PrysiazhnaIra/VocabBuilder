@@ -1,0 +1,106 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 200;
+}
+
+.modalContent {
+  background-color: var(--intense-green);
+  padding: 16px 16px 48px 16px;
+  position: relative;
+  border-radius: 15px;
+  width: 342px;
+
+  font-family: MPF500;
+  font-size: 14px;
+}
+
+.closeButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.iconClose {
+  width: 24px;
+  height: 24px;
+  stroke: var(--white);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.labelHeader {
+  display: flex;
+  align-items: center;
+  gap: 4.5px;
+}
+
+.labelText {
+  font-family: MPFD500;
+  font-size: 14px;
+  color: var(--white);
+}
+
+.inputIcon {
+  width: 28px;
+  height: 28px;
+}
+
+.input {
+  width: 100%;
+  border: 1px solid #d1d5db;
+  border-radius: 15px;
+  padding: 12px 24px;
+  margin-top: 8px;
+  font-family: MPFD500;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--white);
+}
+
+.btnWrapper {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 26px;
+}
+
+.saveButton {
+  border-radius: 30px;
+  padding: 12px 60px;
+  width: 158px;
+  background: var(--white);
+  font-family: MPFD700;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--black);
+}
+
+.cancelButton {
+  border: 1px solid rgba(252, 252, 252, 0.4);
+  border-radius: 30px;
+  padding: 12px 45px;
+  width: 145px;
+  font-family: MPFD700;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--white);
+}

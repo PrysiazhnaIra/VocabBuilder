@@ -1,5 +1,10 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
-import type { AllWords, CategoriesResponse } from "../../types/types";
+import type {
+  AllWords,
+  CategoriesResponse,
+  UpdateWordBody,
+  Word,
+} from "../../types/types";
 import { baseQueryWithAuth } from "./baseQuery";
 
 export const wordApi = createApi({
@@ -24,6 +29,18 @@ export const wordApi = createApi({
       }),
       invalidatesTags: ["Words"],
     }),
+
+    updateWord: builder.mutation<
+      Word,
+      { wordId: string; editedBody: UpdateWordBody }
+    >({
+      query: ({ wordId, editedBody }) => ({
+        url: `/words/edit/${wordId}`,
+        method: "PATCH",
+        body: editedBody,
+      }),
+      invalidatesTags: ["Words"],
+    }),
   }),
 });
 
@@ -31,4 +48,5 @@ export const {
   useGetCategoriesQuery,
   useGetWordsQuery,
   useDeleteWordMutation,
+  useUpdateWordMutation,
 } = wordApi;

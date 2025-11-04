@@ -25,11 +25,9 @@ export default function DictionaryPage() {
 
   const debouncedSearchTerm = useDebounce(searchTerm, 300);
 
-  const trimmedSearchTerm = useMemo(() => {
+  useMemo(() => {
     return debouncedSearchTerm.trim();
   }, [debouncedSearchTerm]);
-
-  console.log("Trimmed Search Term:", trimmedSearchTerm);
 
   const handleSearchChange = (newSearchTerm: string): void => {
     setSearchTerm(newSearchTerm);

@@ -4,15 +4,19 @@ import s from "./ActionsBtn.module.css";
 import Icon from "../Icon/Icon";
 import Button from "../Button/Button";
 import EditWordModal from "../EditWordModal/EditWordModal";
+import type { Word } from "../../types/types";
 
-export default function ActionsBtn({ wordId }: { wordId: string }) {
+export default function ActionsBtn({ wordData }: { wordData: Word }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+
   const [deleteWord, { isLoading: isDeleting }] = useDeleteWordMutation();
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const wordId = wordData._id;
 
   const handleDelete = async () => {
     if (isDeleting) return;
+    if (!wordId) return;
 
     try {
       await deleteWord(wordId).unwrap();
@@ -33,9 +37,11 @@ export default function ActionsBtn({ wordId }: { wordId: string }) {
       console.error("Failed to delete the word:", error);
 
       if (status === 404) {
-        alert(` Помилка: ${message}. Можливо, це слово вже було видалено.`);
+        console.log(
+          "Something went wrong. The word could be deleted earlier. "
+        );
       } else {
-        console.log(` Помилка видалення: ${message}`);
+        console.log(` Error deleting: ${message}`);
       }
     }
   };
@@ -89,7 +95,7 @@ export default function ActionsBtn({ wordId }: { wordId: string }) {
 
       {isEditModalOpen && (
         <EditWordModal
-          wordId={wordId}
+          wordToEdit={wordData}
           onClose={() => setIsEditModalOpen(false)}
         />
       )}

@@ -10,7 +10,6 @@ export type CategoriesResponse = Category[];
 
 export interface Word {
   _id?: string;
-  id?: string;
   en: string;
   ua: string;
   category: string;
@@ -31,4 +30,11 @@ export interface GetWordsParams {
   limit?: number;
   category?: string;
   keyword?: string;
+}
+
+export interface UpdateWordBody {
+  en: string;
+  ua: string;
+  category: string;
+  isIrregular?: boolean;
 }
