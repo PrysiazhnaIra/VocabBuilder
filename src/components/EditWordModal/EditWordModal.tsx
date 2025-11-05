@@ -23,8 +23,14 @@ export default function EditWordModal({
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log("Saving changes for word:", wordToEdit);
+
     if (!wordToEdit._id) return;
     if (!changedWord) return;
+    if (isError) {
+      console.log("error", isError);
+    }
 
     const dataToUpdate: UpdateWordBody = {
       en: changedWord.en,
@@ -38,8 +44,10 @@ export default function EditWordModal({
     });
     console.log("res", res);
 
-    e.preventDefault();
-    console.log("Saving changes for word:", wordToEdit);
+    // onClose();
+  };
+
+  const handleClose = () => {
     onClose();
   };
 
@@ -47,14 +55,14 @@ export default function EditWordModal({
     <ModalPortal>
       <div
         className={s.overlay}
-        onClick={onClose}
+        onClick={handleClose}
         role="dialog"
         aria-modal="true"
         onKeyDown={handleKeyDown}
         tabIndex={-1}
       >
         <div className={s.modalContent} onClick={(e) => e.stopPropagation()}>
-          <button className={s.closeButton} onClick={onClose}>
+          <button className={s.closeButton} onClick={handleClose}>
             <Icon name="icon-close" className={s.iconClose} />
           </button>
 
@@ -93,12 +101,12 @@ export default function EditWordModal({
 
             <div className={s.btnWrapper}>
               <Button type="submit" className={s.saveButton}>
-                Save
+                {isLoading ? "Saving..." : "Save"}
               </Button>
               <Button
                 type="button"
                 className={s.cancelButton}
-                onClick={onClose}
+                onClick={handleClose}
               >
                 Cancel
               </Button>
