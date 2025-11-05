@@ -17,7 +17,6 @@
   position: relative;
   border-radius: 15px;
   width: 342px;
-
   font-family: MPF500;
   font-size: 14px;
 }
@@ -103,4 +102,47 @@
   font-size: 16px;
   line-height: 1.5;
   color: var(--white);
+}
+
+@media screen and (min-width: 768px) {
+  .modalContent {
+    width: 480px;
+    padding: 64px;
+    border-radius: 30px;
+    width: 627px;
+  }
+
+  .closeButton {
+    top: 20px;
+    right: 20px;
+  }
+
+  .iconClose {
+    width: 32px;
+    height: 32px;
+  }
+
+  .label {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    margin: 0;
+  }
+
+  .label:first-of-type {
+    margin-bottom: 18px;
+  }
+
+  .input {
+    padding: 16px 18px;
+    width: 354px;
+    margin: 0;
+    font-family: MPFD400;
+  }
+
+  .btnWrapper {
+    justify-content: center;
+    gap: 10px;
+    margin-top: 32px;
+  }
 }
