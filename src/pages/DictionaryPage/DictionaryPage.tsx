@@ -49,7 +49,11 @@ export default function DictionaryPage() {
         selectedCategory={selectedCategory}
         onCategoryChange={handleCategoryChange}
       />
-      <WordsTable words={wordsList} isLoading={isLoading} />
+      <WordsTable
+        words={wordsList}
+        isLoading={isLoading}
+        pageType="dictionary"
+      />
       <WordsPagination totalPages={allWords?.totalPages || 1} />
     </div>
   );

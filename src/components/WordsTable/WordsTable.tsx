@@ -11,10 +11,12 @@ import s from "./WordsTable.module.css";
 import ActionsBtn from "../ActionsBtn/ActionsBtn";
 import { useMemo } from "react";
 import Icon from "../Icon/Icon";
+import AddToDictionary from "../AddToDictionary/AddToDictionary";
 
 interface WordsTableProps {
   words: Word[];
   isLoading: boolean;
+  pageType: "dictionary" | "recommend";
 }
 
 const capitalizeFirstLetter = (str: string): string => {
@@ -24,7 +26,7 @@ const capitalizeFirstLetter = (str: string): string => {
 
 const columnHelper = createColumnHelper<Word>();
 
-const columnsDefinition = [
+const baseColumnsDefinition = [
   columnHelper.accessor("en", {
     header: () => (
       <div className={s.headBlock}>
@@ -69,28 +71,50 @@ const columnsDefinition = [
     },
     id: "category",
   }),
-  columnHelper.display({
-    id: "progress",
-    header: () => "Progress",
-    cell: (props) => {
-      const progressValue = props.row.original.progress || 0;
-      return <ProgressBar progress={progressValue} />;
-    },
-  }),
-  columnHelper.display({
-    id: "actions",
-    header: () => "",
-    cell: (props) => {
-      const wordForEdit = props.row.original;
-
-      // if (!wordForEdit) return null;
-      return <ActionsBtn wordData={wordForEdit} />;
-    },
-  }),
 ];
 
-export default function WordsTable({ words, isLoading }: WordsTableProps) {
-  const columns = useMemo(() => columnsDefinition, []);
+const progressColumn: ColumnDef<Word> = columnHelper.display({
+  id: "progress",
+  header: () => "Progress",
+  cell: (props) => {
+    const progressValue = props.row.original.progress || 0;
+    return <ProgressBar progress={progressValue} />;
+  },
+});
+
+export default function WordsTable({
+  words,
+  isLoading,
+  pageType,
+}: WordsTableProps) {
+  const columns = useMemo(() => {
+    let finalColumns: ColumnDef<Word>[] = [...baseColumnsDefinition];
+
+    if (pageType === "dictionary") {
+      finalColumns.push(progressColumn);
+    }
+
+    const actionsColumn = columnHelper.display({
+      id: "actions",
+      header: () => "",
+      cell: (props) => {
+        const wordForAction = props.row.original;
+        if (pageType === "dictionary") {
+          return <ActionsBtn wordData={wordForAction} />;
+        }
+
+        if (pageType === "recommend") {
+          return <AddToDictionary wordData={wordForAction} />;
+        }
+
+        return null;
+      },
+    });
+
+    finalColumns.push(actionsColumn);
+
+    return finalColumns;
+  }, [pageType]);
 
   const table = useReactTable({
     data: words,
@@ -99,11 +123,11 @@ export default function WordsTable({ words, isLoading }: WordsTableProps) {
   });
 
   if (isLoading) {
-    return <div className={s.wrapper}>Завантаження таблиці...</div>;
+    return <div className={s.wrapper}>Loading...</div>;
   }
 
   if (words.length === 0) {
-    return <div className={s.wrapper}>Слова не знайдені.</div>;
+    return <div className={s.wrapper}>Words were not found.</div>;
   }
 
   return (
