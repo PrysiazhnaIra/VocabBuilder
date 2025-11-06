@@ -74,7 +74,12 @@ export default function EditWordModal({
               </div>
               <input
                 type="text"
-                defaultValue={wordToEdit?.ua || ""}
+                defaultValue={
+                  wordToEdit?.ua
+                    ? wordToEdit.ua.charAt(0).toUpperCase() +
+                      wordToEdit.ua.slice(1)
+                    : ""
+                }
                 onChange={(e) =>
                   setChangedWord({ ...wordToEdit, ua: e.target.value })
                 }
@@ -90,7 +95,12 @@ export default function EditWordModal({
               </div>
               <input
                 type="text"
-                defaultValue={wordToEdit?.en || ""}
+                defaultValue={
+                  wordToEdit?.en
+                    ? wordToEdit.en.charAt(0).toUpperCase() +
+                      wordToEdit.en.slice(1)
+                    : ""
+                }
                 onChange={(e) =>
                   setChangedWord({ ...wordToEdit, en: e.target.value })
                 }
