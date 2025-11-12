@@ -2,18 +2,22 @@ import { useEffect, useState } from "react";
 import Dashboard from "../../components/Dashboard/Dashboard";
 import WordsTable from "../../components/WordsTable/WordsTable";
 import s from "./RecommendPage.module.css";
-import { useGetWordsQuery } from "../../redux/api/wordApi";
+import { useGetOwnWordsQuery } from "../../redux/api/wordApi";
 import useWordFiltering from "../../hooks/useWordFiltering";
 import WordsPagination from "../../components/WordsPagination/WordsPagination";
 
 export default function RecommendPage() {
   const [currentPage, setCurrentPage] = useState(1);
-  const { data: allWords, isLoading, isError } = useGetWordsQuery({
+  const {
+    data: allWords,
+    isLoading,
+    isError,
+  } = useGetOwnWordsQuery({
     page: currentPage,
   });
   useEffect(() => {
     if (allWords) {
-      console.log("allWords", allWords);
+      console.log("allOwnWords", allWords);
     }
     if (isError) {
       console.error("Error fetching words", isError);
