@@ -34,7 +34,7 @@ export const wordApi = createApi({
       providesTags: ["Categories"],
     }),
 
-    getWords: builder.query<AllWords, GetWordsParams | void>({
+    getWords: builder.query<AllWords, GetWordsParams | undefined>({
       query: (params) => {
         const queryParams = buildQueryParams(params);
         return queryParams
@@ -43,6 +43,19 @@ export const wordApi = createApi({
               params: queryParams,
             }
           : "/words/all";
+      },
+      providesTags: ["Words"],
+    }),
+
+    getOwnWords: builder.query<AllWords, GetWordsParams | undefined>({
+      query: (params) => {
+        const queryParams = buildQueryParams(params);
+        return queryParams
+          ? {
+              url: "/words/own",
+              params: queryParams,
+            }
+          : "/words/own";
       },
       providesTags: ["Words"],
     }),
@@ -72,6 +85,7 @@ export const wordApi = createApi({
 export const {
   useGetCategoriesQuery,
   useGetWordsQuery,
+  useGetOwnWordsQuery,
   useDeleteWordMutation,
   useUpdateWordMutation,
 } = wordApi;
