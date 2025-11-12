@@ -44,7 +44,7 @@ export const usePagination = ({
       pages.push(totalPages);
     }
 
-    return [...new Set(pages)];
+    return pages;
   }, [totalPages, siblingCount, currentPage]);
 
   return paginationRange;

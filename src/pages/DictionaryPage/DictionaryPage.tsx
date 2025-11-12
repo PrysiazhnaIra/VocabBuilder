@@ -7,7 +7,10 @@ import s from "./DictionaryPage.module.css";
 import useWordFiltering from "../../hooks/useWordFiltering";
 
 export default function DictionaryPage() {
-  const { data: allWords, isLoading, isError } = useGetWordsQuery(undefined);
+  const [currentPage, setCurrentPage] = useState(1);
+  const { data: allWords, isLoading, isError } = useGetWordsQuery({
+    page: currentPage,
+  });
   useEffect(() => {
     if (allWords) {
       console.log("allWords", allWords);
@@ -17,7 +20,6 @@ export default function DictionaryPage() {
     }
   }, [allWords, isError]);
 
-  const [currentPage, setCurrentPage] = useState(1);
   const handlePageChange = (newPage: number) => {
     if (newPage >= 1 && newPage <= (allWords?.totalPages || 1)) {
       setCurrentPage(newPage);

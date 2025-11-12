@@ -8,11 +8,49 @@
 }
 
 .paginationButton {
-  border: 1px solid rgba(18, 20, 23, 0.1);
-  border-radius: 8px;
-  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  border: 1px solid var(--border-grey);
+  background-color: var(--white);
   font-family: MPFD600;
   font-size: 13px;
   color: var(--black);
+  transition: background-color 200ms ease, color 200ms ease,
+    border-color 200ms ease;
+}
+
+.button:hover:not(.disabled) {
+  border-color: var(--intense-green);
+}
+
+.active {
+  background-color: var(--intense-green);
+  color: var(--white);
+  border-color: var(--intense-green);
+}
+
+.disabled {
+  color: var(--light-grey);
+  border-color: var(--border-grey);
+  background-color: var(--whiteF8);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.dots {
+  cursor: default;
+}
+
+.dotsIcon {
+  fill: var(--light-grey);
 }

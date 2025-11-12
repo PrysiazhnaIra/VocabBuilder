@@ -44,25 +44,27 @@ export default function WordsPagination({
       </li>
 
       <li className={s.paginationButton}>
-        <button
+        <Button
           className={`${s.button} ${currentPage === 1 ? s.disabled : ""}`}
           onClick={onPrevious}
           disabled={currentPage === 1}
         >
           &lt;
-        </button>
+        </Button>
       </li>
 
       {paginationRange.map((pageNumberOrDots, index) => {
         if (pageNumberOrDots === DOTS) {
           return (
-            <li key={index} className={s.paginationButton}>
-              <Icon
-                name="icon-dots"
-                width={13}
-                height={13}
-                className={s.dotsIcon}
-              />
+            <li key={`dots-${index}`} className={s.paginationButton}>
+              <span className={`${s.button} ${s.dots}`}>
+                <Icon
+                  name="icon-dots"
+                  width={13}
+                  height={13}
+                  className={s.dotsIcon}
+                />
+              </span>
             </li>
           );
         }
@@ -82,23 +84,23 @@ export default function WordsPagination({
       })}
 
       <li className={s.paginationButton}>
-        <button
+        <Button
           className={`${s.button} ${currentPage === lastPage ? s.disabled : ""}`}
           onClick={onNext}
           disabled={currentPage === lastPage}
         >
           &gt;
-        </button>
+        </Button>
       </li>
 
       <li className={s.paginationButton}>
-        <button
+        <Button
           className={`${s.button} ${currentPage === lastPage ? s.disabled : ""}`}
           onClick={onLast}
           disabled={currentPage === lastPage}
         >
           &raquo;
-        </button>
+        </Button>
       </li>
     </ul>
   );
