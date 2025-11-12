@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import Dashboard from "../../components/Dashboard/Dashboard";
 import WordsPagination from "../../components/WordsPagination/WordsPagination";
 import WordsTable from "../../components/WordsTable/WordsTable";
@@ -16,6 +16,13 @@ export default function DictionaryPage() {
       console.error("Error fetching words", isError);
     }
   }, [allWords, isError]);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const handlePageChange = (newPage: number) => {
+    if (newPage >= 1 && newPage <= (allWords?.totalPages || 1)) {
+      setCurrentPage(newPage);
+    }
+  };
 
   const wordsList = allWords?.results || [];
 
@@ -40,7 +47,11 @@ export default function DictionaryPage() {
         isLoading={isLoading}
         pageType="dictionary"
       />
-      <WordsPagination totalPages={allWords?.totalPages || 1} />
+      <WordsPagination
+        totalPages={allWords?.totalPages || 1}
+        currentPage={currentPage}
+        onPageChange={handlePageChange}
+      />
     </div>
   );
 }
