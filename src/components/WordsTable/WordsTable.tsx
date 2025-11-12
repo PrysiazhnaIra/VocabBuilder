@@ -71,7 +71,7 @@ const baseColumnsDefinition = [
     },
     id: "category",
   }),
-];
+] as ColumnDef<Word>[];
 
 const progressColumn: ColumnDef<Word> = columnHelper.display({
   id: "progress",
@@ -88,7 +88,7 @@ export default function WordsTable({
   pageType,
 }: WordsTableProps) {
   const columns = useMemo(() => {
-    let finalColumns: ColumnDef<Word>[] = [...baseColumnsDefinition];
+    const finalColumns: ColumnDef<Word>[] = [...baseColumnsDefinition];
 
     if (pageType === "dictionary") {
       finalColumns.push(progressColumn);

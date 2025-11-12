@@ -1,0 +1,18 @@
+.paginationContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 28px;
+  padding-bottom: 48px;
+  gap: 10px;
+}
+
+.paginationButton {
+  border: 1px solid rgba(18, 20, 23, 0.1);
+  border-radius: 8px;
+  padding: 10px;
+
+  font-family: MPFD600;
+  font-size: 13px;
+  color: var(--black);
+}
