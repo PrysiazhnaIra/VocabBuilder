@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { authApi } from "../api/authApi";
+import { forceLogout } from "./authActions";
 
 const initialState = {
   user: { name: null, email: null },
@@ -20,6 +21,11 @@ const authSlice = createSlice({
       state.user = action.payload.user;
       state.isLoggedIn = true;
     },
+    clearAuthState: (state) => {
+      state.user = { name: null, email: null };
+      state.token = null;
+      state.isLoggedIn = false;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -32,6 +38,11 @@ const authSlice = createSlice({
         if (persistedToken) {
           state.isLoggedIn = true;
         }
+      })
+      .addCase(forceLogout, (state) => {
+        state.user = { name: null, email: null };
+        state.token = null;
+        state.isLoggedIn = false;
       })
       .addMatcher(
         authApi.endpoints.register.matchFulfilled,
@@ -57,5 +68,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { setToken } = authSlice.actions;
+export const { setToken, clearAuthState } = authSlice.actions;
 export default authSlice.reducer;
