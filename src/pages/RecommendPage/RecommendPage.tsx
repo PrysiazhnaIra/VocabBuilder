@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Dashboard from "../../components/Dashboard/Dashboard";
 import WordsTable from "../../components/WordsTable/WordsTable";
 import s from "./RecommendPage.module.css";
@@ -9,12 +9,24 @@ import WordsPagination from "../../components/WordsPagination/WordsPagination";
 export default function RecommendPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const {
-    data: allWords,
-    isLoading,
-    isError,
-  } = useGetOwnWordsQuery({
-    page: currentPage,
-  });
+    searchTerm,
+    selectedCategory,
+    debouncedSearchTerm,
+    handleSearchChange,
+    handleCategoryChange,
+  } = useWordFiltering();
+
+  const queryParams = useMemo(
+    () => ({
+      page: currentPage,
+      keyword: debouncedSearchTerm || undefined,
+      category: selectedCategory === "all" ? undefined : selectedCategory,
+    }),
+    [currentPage, debouncedSearchTerm, selectedCategory]
+  );
+
+  const { data: allWords, isLoading, isError } = useGetOwnWordsQuery(queryParams);
+
   useEffect(() => {
     if (allWords) {
       console.log("allOwnWords", allWords);
@@ -30,26 +42,26 @@ export default function RecommendPage() {
     }
   };
 
-  const wordsList = allWords?.results || [];
+  const handleDashboardSearchChange = (value: string) => {
+    handleSearchChange(value);
+    setCurrentPage(1);
+  };
 
-  const {
-    searchTerm,
-    selectedCategory,
-    filteredWords,
-    handleSearchChange,
-    handleCategoryChange,
-  } = useWordFiltering(wordsList);
+  const handleDashboardCategoryChange = (value: string) => {
+    handleCategoryChange(value);
+    setCurrentPage(1);
+  };
 
   return (
     <div className={s.container}>
       <Dashboard
-        onSearchChange={handleSearchChange}
+        onSearchChange={handleDashboardSearchChange}
         searchTerm={searchTerm}
         selectedCategory={selectedCategory}
-        onCategoryChange={handleCategoryChange}
+        onCategoryChange={handleDashboardCategoryChange}
       />
       <WordsTable
-        words={filteredWords}
+        words={allWords?.results || []}
         isLoading={isLoading}
         pageType="recommend"
       />
