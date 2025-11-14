@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Dashboard from "../../components/Dashboard/Dashboard";
 import WordsPagination from "../../components/WordsPagination/WordsPagination";
 import WordsTable from "../../components/WordsTable/WordsTable";
@@ -8,9 +8,25 @@ import useWordFiltering from "../../hooks/useWordFiltering";
 
 export default function DictionaryPage() {
   const [currentPage, setCurrentPage] = useState(1);
-  const { data: allWords, isLoading, isError } = useGetWordsQuery({
-    page: currentPage,
-  });
+  const {
+    searchTerm,
+    selectedCategory,
+    debouncedSearchTerm,
+    handleSearchChange,
+    handleCategoryChange,
+  } = useWordFiltering();
+
+  const queryParams = useMemo(
+    () => ({
+      page: currentPage,
+      keyword: debouncedSearchTerm || undefined,
+      category: selectedCategory === "all" ? undefined : selectedCategory,
+    }),
+    [currentPage, debouncedSearchTerm, selectedCategory]
+  );
+
+  const { data: allWords, isLoading, isError } = useGetWordsQuery(queryParams);
+
   useEffect(() => {
     if (allWords) {
       console.log("allWords", allWords);
@@ -26,26 +42,26 @@ export default function DictionaryPage() {
     }
   };
 
-  const wordsList = allWords?.results || [];
+  const handleDashboardSearchChange = (value: string) => {
+    handleSearchChange(value);
+    setCurrentPage(1);
+  };
 
-  const {
-    searchTerm,
-    selectedCategory,
-    filteredWords,
-    handleSearchChange,
-    handleCategoryChange,
-  } = useWordFiltering(wordsList);
+  const handleDashboardCategoryChange = (value: string) => {
+    handleCategoryChange(value);
+    setCurrentPage(1);
+  };
 
   return (
     <div className={s.container}>
       <Dashboard
-        onSearchChange={handleSearchChange}
+        onSearchChange={handleDashboardSearchChange}
         searchTerm={searchTerm}
         selectedCategory={selectedCategory}
-        onCategoryChange={handleCategoryChange}
+        onCategoryChange={handleDashboardCategoryChange}
       />
       <WordsTable
-        words={filteredWords}
+        words={allWords?.results || []}
         isLoading={isLoading}
         pageType="dictionary"
       />
