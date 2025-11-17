@@ -17,15 +17,18 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 42px;
-  height: 42px;
-  border-radius: 12px;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
   border: 1px solid var(--border-grey);
+  padding: 10px;
   background-color: var(--white);
   font-family: MPFD600;
   font-size: 13px;
   color: var(--black);
-  transition: background-color 200ms ease, color 200ms ease,
+  transition:
+    background-color 200ms ease,
+    color 200ms ease,
     border-color 200ms ease;
 }
 

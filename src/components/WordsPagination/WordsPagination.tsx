@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import s from "./WordsPagination.module.css";
 import Icon from "../Icon/Icon";
 import { usePagination, DOTS } from "../../hooks/usePagination";
@@ -14,11 +15,49 @@ export default function WordsPagination({
   currentPage,
   onPageChange,
 }: WordsPaginationProps) {
-  const paginationRange = usePagination({
+  const [isMobile, setIsMobile] = useState(
+    typeof window !== "undefined" ? window.innerWidth <= 480 : false
+  );
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 480);
+    };
+
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const desktopRange = usePagination({
     totalPages,
     siblingCount: 1,
     currentPage,
   });
+
+  const buildMobileRange = () => {
+    if (totalPages <= 4) {
+      return Array.from({ length: totalPages }, (_, idx) => idx + 1);
+    }
+
+    const range: (number | string)[] = [1];
+
+    if (currentPage <= 2) {
+      range.push(2);
+    } else if (currentPage >= totalPages - 1) {
+      range.push(totalPages - 1);
+    } else {
+      range.push(currentPage);
+    }
+
+    range.push(DOTS);
+    range.push(totalPages);
+
+    return range;
+  };
+
+  const paginationRange = isMobile ? buildMobileRange() : desktopRange;
 
   if (totalPages <= 1) {
     return null;

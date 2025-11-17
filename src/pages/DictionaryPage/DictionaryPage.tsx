@@ -6,6 +6,8 @@ import { useGetWordsQuery } from "../../redux/api/wordApi";
 import s from "./DictionaryPage.module.css";
 import useWordFiltering from "../../hooks/useWordFiltering";
 
+const WORDS_PER_PAGE = 7;
+
 export default function DictionaryPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const {
@@ -19,6 +21,7 @@ export default function DictionaryPage() {
   const queryParams = useMemo(
     () => ({
       page: currentPage,
+      limit: WORDS_PER_PAGE,
       keyword: debouncedSearchTerm || undefined,
       category: selectedCategory === "all" ? undefined : selectedCategory,
     }),
