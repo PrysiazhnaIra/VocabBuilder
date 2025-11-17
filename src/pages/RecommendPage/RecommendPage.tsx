@@ -6,6 +6,8 @@ import { useGetOwnWordsQuery } from "../../redux/api/wordApi";
 import useWordFiltering from "../../hooks/useWordFiltering";
 import WordsPagination from "../../components/WordsPagination/WordsPagination";
 
+const WORDS_PER_PAGE = 7;
+
 export default function RecommendPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const {
@@ -19,6 +21,7 @@ export default function RecommendPage() {
   const queryParams = useMemo(
     () => ({
       page: currentPage,
+      limit: WORDS_PER_PAGE,
       keyword: debouncedSearchTerm || undefined,
       category: selectedCategory === "all" ? undefined : selectedCategory,
     }),
