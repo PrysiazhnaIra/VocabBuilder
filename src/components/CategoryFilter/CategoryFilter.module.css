@@ -20,6 +20,16 @@
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.2s ease;
+}
+
+.categoryOption {
+  background-color: var(--white);
+  color: var(--black);
 }
 
 .iconDown {
@@ -27,6 +37,49 @@
   right: 50px;
   top: 15px;
   color: black;
+  pointer-events: none;
+  transition: transform 0.2s ease;
+}
+
+.iconDown.rotated {
+  transform: rotate(180deg);
+}
+
+.customOptionList {
+  position: absolute;
+  top: calc(100% + 5px);
+  left: 0;
+  z-index: 100;
+  width: 345px;
+
+  list-style: none;
+  padding: 12px 24px;
+  margin: 0;
+
+  border-radius: 15px;
+  box-shadow: 0 4px 47px 0 rgba(18, 20, 23, 0.08);
+  background: var(--white);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.customOption {
+  cursor: pointer;
+  font-size: 16px;
+  font-family: MPFD500;
+  line-height: 1.5;
+  color: var(--black);
+  transition: background-color 0.1s ease;
+}
+
+.customOption:hover {
+  transition: background-color 0.1s ease;
+  color: var(--intense-green);
+}
+
+.customOption.selected {
+  color: var(--intense-green);
 }
 
 @media screen and (min-width: 768px) {
