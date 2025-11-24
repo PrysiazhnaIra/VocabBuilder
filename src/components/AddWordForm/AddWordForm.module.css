@@ -1,0 +1,26 @@
+.btnWrapper {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.addBtn {
+  border-radius: 30px;
+  padding: 12px 63px;
+  background: var(--white);
+  font-family: MPFD700;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--black);
+}
+
+.cancelBtn {
+  border: 1px solid rgba(252, 252, 252, 0.4);
+  border-radius: 30px;
+  padding: 12px 45px;
+  font-family: MPFD700;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--white);
+}

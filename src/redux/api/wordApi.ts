@@ -1,5 +1,6 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import type {
+  AddWordBody,
   AllWords,
   CategoriesResponse,
   GetWordsParams,
@@ -79,6 +80,14 @@ export const wordApi = createApi({
       }),
       invalidatesTags: ["Words"],
     }),
+    addWord: builder.mutation<AddWordBody, AddWordBody>({
+      query: (newWord) => ({
+        url: "words/create",
+        method: "POST",
+        body: newWord,
+      }),
+      invalidatesTags: ["Words"],
+    }),
   }),
 });
 
@@ -88,4 +97,5 @@ export const {
   useGetOwnWordsQuery,
   useDeleteWordMutation,
   useUpdateWordMutation,
+  useAddWordMutation,
 } = wordApi;

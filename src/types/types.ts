@@ -32,9 +32,12 @@ export interface GetWordsParams {
   keyword?: string;
 }
 
-export interface UpdateWordBody {
+interface WordBodyPayload {
   en: string;
   ua: string;
   category: string;
-  isIrregular?: boolean;
+  isIrregular?: "regular" | "irregular";
 }
+
+export type UpdateWordBody = WordBodyPayload;
+export type AddWordBody = WordBodyPayload;
