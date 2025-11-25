@@ -36,7 +36,7 @@ interface WordBodyPayload {
   en: string;
   ua: string;
   category: string;
-  isIrregular?: "regular" | "irregular";
+  isIrregular?: boolean;
 }
 
 export type UpdateWordBody = WordBodyPayload;

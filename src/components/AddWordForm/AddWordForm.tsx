@@ -7,7 +7,6 @@ import {
   useAddWordMutation,
   useGetCategoriesQuery,
 } from "../../redux/api/wordApi";
-import { useAppDispatch } from "../../hooks/reduxHooks";
 import { toast } from "react-toastify";
 
 export default function AddWordForm({ onClose }: { onClose: () => void }) {
@@ -19,7 +18,6 @@ export default function AddWordForm({ onClose }: { onClose: () => void }) {
   } = useForm<AddWordBody>();
 
   const [addWord, { isLoading }] = useAddWordMutation();
-  const dispatch = useAppDispatch();
 
   const { data: categories } = useGetCategoriesQuery();
 
@@ -29,7 +27,7 @@ export default function AddWordForm({ onClose }: { onClose: () => void }) {
     if (isLoading) return;
     const isIrregularValue =
       data.category === "verb" && data.isIrregular
-        ? data.isIrregular === "irregular"
+        ? data.isIrregular === true
         : undefined;
 
     const payload = {
@@ -41,9 +39,23 @@ export default function AddWordForm({ onClose }: { onClose: () => void }) {
       await addWord(payload).unwrap();
 
       toast.success("Word added successfully!");
+      console.log("payload", payload);
       onClose();
-    } catch (error: any) {
-      const errorMessage = error?.data?.message || "Error adding a word.";
+    } catch (error: unknown) {
+      let errorMessage = "Error adding a word.";
+      if (typeof error === "object" && error !== null) {
+        const errObj = error as Record<string, unknown>;
+        if (
+          typeof errObj.data === "object" &&
+          errObj.data !== null &&
+          typeof (errObj.data as Record<string, unknown>).message === "string"
+        ) {
+          errorMessage = (errObj.data as Record<string, unknown>)
+            .message as string;
+        } else if (typeof errObj.message === "string") {
+          errorMessage = errObj.message;
+        }
+      }
       toast.error(errorMessage);
     }
   };
@@ -54,12 +66,9 @@ export default function AddWordForm({ onClose }: { onClose: () => void }) {
         <div className={s.fieldGroup}>
           <select
             {...register("category", { required: "Select category!" })}
-            className={s.selectInput}
+            className={s.input}
             defaultValue=""
           >
-            <option value="" disabled hidden>
-              Select category
-            </option>
             {categories?.map((category) => (
               <option key={category} value={category}>
                 {category.charAt(0).toUpperCase() + category.slice(1)}
@@ -73,7 +82,7 @@ export default function AddWordForm({ onClose }: { onClose: () => void }) {
 
         {selectedCategory === "verb" && (
           <div className={s.radioGroup}>
-            <label>
+            <label className={s.radioLabel}>
               <input
                 type="radio"
                 value="regular"
@@ -84,7 +93,7 @@ export default function AddWordForm({ onClose }: { onClose: () => void }) {
               />
               <span>Regular</span>
             </label>
-            <label>
+            <label className={s.radioLabel}>
               <input
                 type="radio"
                 value="irregular"
@@ -101,6 +110,7 @@ export default function AddWordForm({ onClose }: { onClose: () => void }) {
         <div className={s.inputWrapper}>
           <div className={s.labelWithIcon}>
             <Icon name="icon-ukraine" className={s.icon} />
+            <p className={s.textForIcon}>Ukrainian</p>
           </div>
           <input
             {...register("ua", {
@@ -110,7 +120,6 @@ export default function AddWordForm({ onClose }: { onClose: () => void }) {
                 message: "Enter Ukrainian correct word",
               },
             })}
-            placeholder="Працювати"
             className={errors.ua ? s.inputError : s.input}
           />
           {errors.ua && (
@@ -121,6 +130,7 @@ export default function AddWordForm({ onClose }: { onClose: () => void }) {
         <div className={s.inputWrapper}>
           <div className={s.labelWithIcon}>
             <Icon name="icon-united-kingdom" className={s.icon} />
+            <p className={s.textForIcon}>English</p>
           </div>
           <input
             {...register("en", {
@@ -130,7 +140,6 @@ export default function AddWordForm({ onClose }: { onClose: () => void }) {
                 message: "Enter English correct word",
               },
             })}
-            placeholder="Work"
             className={errors.en ? s.inputError : s.input}
           />
           {errors.en && (
