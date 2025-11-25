@@ -5,6 +5,7 @@ import Button from "../Button/Button";
 import Icon from "../Icon/Icon";
 import ModalPortal from "../ModalPortal/ModalPortal";
 import s from "./EditWordModal.module.css";
+import { toast } from "react-toastify";
 interface EditWordModalProps {
   wordToEdit: Word;
   onClose: () => void;
@@ -42,9 +43,19 @@ export default function EditWordModal({
       wordId: wordToEdit._id,
       editedBody: dataToUpdate,
     });
-    console.log("res", res);
-
-    // onClose();
+    console.log("Update response:", res);
+    if ("error" in res) {
+      const err: any = res.error;
+      const message =
+        (err &&
+          typeof err === "object" &&
+          (err.data?.message ?? err.message)) ??
+        "";
+      toast.error(`Error updating the word. ${message}`);
+      return;
+    }
+    toast.success("Word updated successfully!");
+    onClose();
   };
 
   const handleClose = () => {
