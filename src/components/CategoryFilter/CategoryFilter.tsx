@@ -8,13 +8,14 @@ import { useEffect, useRef, useState } from "react";
 interface CategoryFilterProps {
   selectedCategory: string;
   onCategoryChange: (newCategory: string) => void;
+  variant?: "black" | "white";
 }
 export default function CategoryFilter({
   selectedCategory,
   onCategoryChange,
+  variant = "black",
 }: CategoryFilterProps) {
   const { isLoggedIn } = useAppSelector(selectAuthStatus);
-
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -63,7 +64,10 @@ export default function CategoryFilter({
     return <div>Failed to load categories. Please try again later.</div>;
   }
   return (
-    <div className={s.categoryFilter} ref={dropdownRef}>
+    <div
+      className={`${s.categoryFilter} ${variant === "white" ? s.addWordSelect : ""}`}
+      ref={dropdownRef}
+    >
       <div
         className={s.categorySelect}
         onClick={() => setIsOpen(!isOpen)}
@@ -75,7 +79,7 @@ export default function CategoryFilter({
           name="icon-arrow-down"
           width={20}
           height={20}
-          className={`${s.iconDown} ${isOpen ? s.rotated : ""}`}
+          className={`${s.iconDown} ${variant === "white" ? s.addWordIcon : ""} ${isOpen ? s.rotated : ""}`}
         />
       </div>
 

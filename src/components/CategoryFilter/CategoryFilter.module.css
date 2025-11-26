@@ -6,16 +6,16 @@
   padding: 12px 24px;
   border: var(--border-button);
   border-radius: 15px;
-  font-size: 15px;
   color: var(--black);
   background-color: transparent;
   outline: none;
   transition: all 0.2s ease;
-  font-weight: 500;
+  font-family: MPFD500;
   font-size: 16px;
   line-height: 1.5;
   cursor: pointer;
   width: 100%;
+  outline: none;
 
   appearance: none;
   -webkit-appearance: none;
@@ -25,6 +25,11 @@
   justify-content: space-between;
   align-items: center;
   transition: all 0.2s ease;
+}
+
+.addWordSelect .categorySelect {
+  border: 1px solid #d1d5db;
+  color: var(--white);
 }
 
 .categoryOption {
@@ -39,6 +44,10 @@
   color: black;
   pointer-events: none;
   transition: transform 0.2s ease;
+}
+
+.addWordIcon {
+  color: var(--white);
 }
 
 .iconDown.rotated {
@@ -85,6 +94,10 @@
 @media screen and (min-width: 768px) {
   .categorySelect {
     width: 164px;
+  }
+
+  .addWordSelect .categorySelect {
+    width: 100%;
   }
 
   .iconDown {

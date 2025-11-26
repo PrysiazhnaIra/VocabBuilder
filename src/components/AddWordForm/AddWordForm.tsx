@@ -1,34 +1,39 @@
-import { useForm, type SubmitHandler } from "react-hook-form";
+import { Controller, useForm, type SubmitHandler } from "react-hook-form";
 import Button from "../Button/Button";
 import s from "./AddWordForm.module.css";
-import type { AddWordBody } from "../../types/types";
 import Icon from "../Icon/Icon";
-import {
-  useAddWordMutation,
-  useGetCategoriesQuery,
-} from "../../redux/api/wordApi";
+import { useAddWordMutation } from "../../redux/api/wordApi";
 import { toast } from "react-toastify";
+import CategoryFilter from "../CategoryFilter/CategoryFilter";
+
+interface AddWordFormValues {
+  en: string;
+  ua: string;
+  category: string;
+  isIrregular?: "regular" | "irregular";
+}
 
 export default function AddWordForm({ onClose }: { onClose: () => void }) {
   const {
     register,
     handleSubmit,
     watch,
+    control,
     formState: { errors },
-  } = useForm<AddWordBody>();
+  } = useForm<AddWordFormValues>({
+    defaultValues: {
+      category: "all",
+    },
+  });
 
   const [addWord, { isLoading }] = useAddWordMutation();
 
-  const { data: categories } = useGetCategoriesQuery();
-
   const selectedCategory = watch("category");
 
-  const onSubmit: SubmitHandler<AddWordBody> = async (data) => {
+  const onSubmit: SubmitHandler<AddWordFormValues> = async (data) => {
     if (isLoading) return;
     const isIrregularValue =
-      data.category === "verb" && data.isIrregular
-        ? data.isIrregular === true
-        : undefined;
+      data.category === "verb" ? data.isIrregular === "irregular" : undefined;
 
     const payload = {
       ...data,
@@ -64,17 +69,18 @@ export default function AddWordForm({ onClose }: { onClose: () => void }) {
     <div>
       <form onSubmit={handleSubmit(onSubmit)} className={s.form}>
         <div className={s.fieldGroup}>
-          <select
-            {...register("category", { required: "Select category!" })}
-            className={s.input}
-            defaultValue=""
-          >
-            {categories?.map((category) => (
-              <option key={category} value={category}>
-                {category.charAt(0).toUpperCase() + category.slice(1)}
-              </option>
-            ))}
-          </select>
+          <Controller
+            name="category"
+            control={control}
+            rules={{ required: "Select category!" }}
+            render={({ field: { onChange, value } }) => (
+              <CategoryFilter
+                selectedCategory={value || "all"}
+                onCategoryChange={onChange}
+                variant="white"
+              />
+            )}
+          />
           {errors.category && (
             <span className={s.errorText}>{errors.category.message}</span>
           )}
@@ -120,7 +126,7 @@ export default function AddWordForm({ onClose }: { onClose: () => void }) {
                 message: "Enter Ukrainian correct word",
               },
             })}
-            className={errors.ua ? s.inputError : s.input}
+            className={`${s.input} ${errors.ua ? s.inputError : ""}`}
           />
           {errors.ua && (
             <span className={s.errorText}>{errors.ua.message}</span>
@@ -140,7 +146,7 @@ export default function AddWordForm({ onClose }: { onClose: () => void }) {
                 message: "Enter English correct word",
               },
             })}
-            className={errors.en ? s.inputError : s.input}
+            className={`${s.input} ${errors.en ? s.inputError : ""}`}
           />
           {errors.en && (
             <span className={s.errorText}>{errors.en.message}</span>
