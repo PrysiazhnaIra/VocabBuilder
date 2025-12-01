@@ -32,6 +32,20 @@
   text-underline-position: from-font;
 }
 
+.toggleWrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
+  align-items: center;
+}
+
+.toggleText {
+  color: var(--light-grey);
+  font-family: "MPFD500";
+  font-size: 16px;
+  line-height: 1.5;
+}
+
 .btnWrapper {
   display: flex;
   flex-direction: column;
