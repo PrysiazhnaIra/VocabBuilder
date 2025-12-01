@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Icon from "../Icon/Icon";
 import LogoutBtn from "../LogoutBtn/LogoutBtn";
 import NavItem from "../NavItem/NavItem";
@@ -15,6 +15,12 @@ export default function Header({ isLoggedIn }: HeaderProp) {
   const toggleSidebar = () => {
     setIsSidebarOpen((prev) => !prev);
   };
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      setIsSidebarOpen(false);
+    }
+  }, [isLoggedIn]);
 
   return (
     <>
@@ -61,7 +67,7 @@ export default function Header({ isLoggedIn }: HeaderProp) {
           <Logo />
         </div>
       )}
-      <Sidebar isOpen={isSidebarOpen} onClose={toggleSidebar} />
+      {isLoggedIn && <Sidebar isOpen={isSidebarOpen} onClose={toggleSidebar} />}
     </>
   );
 }
