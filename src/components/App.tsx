@@ -28,7 +28,7 @@ export default function App() {
         <Routes>
           <Route element={<PublicRoute />}>
             <Route path="/" element={<AuthPage />}>
-              <Route index element={<Navigate to="register" replace />} />
+              <Route index element={<Navigate to="login" replace />} />
               <Route path="register" element={<RegisterForm />} />
               <Route path="login" element={<LoginForm />} />
             </Route>

@@ -52,9 +52,12 @@ export default function LoginForm() {
         <Button type="submit" className={s.btnActive} disabled={isLoading}>
           {isLoading ? "Logining..." : "Login"}
         </Button>
-        <Link to="/register" className={s.toggleLink}>
-          Register
-        </Link>
+        <div className={s.toggleWrapper}>
+          <span className={s.toggleText}>Don't have an account?</span>
+          <Link to="/register" className={s.toggleLink}>
+            Register
+          </Link>
+        </div>
       </div>
     </form>
   );

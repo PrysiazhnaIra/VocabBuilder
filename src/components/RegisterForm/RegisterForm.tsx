@@ -59,9 +59,12 @@ export default function RegisterForm() {
         <Button type="submit" className={s.btnActive} disabled={isLoading}>
           {isLoading ? "Registering..." : "Register"}
         </Button>
-        <Link to="/login" className={s.toggleLink}>
-          Login
-        </Link>
+        <div className={s.toggleWrapper}>
+          <span className={s.toggleText}>Already have an account?</span>
+          <Link to="/login" className={s.toggleLink}>
+            Login
+          </Link>
+        </div>
       </div>
     </form>
   );
