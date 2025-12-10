@@ -41,3 +41,25 @@ interface WordBodyPayload {
 
 export type UpdateWordBody = WordBodyPayload;
 export type AddWordBody = WordBodyPayload;
+
+export interface TrainingTask {
+  _id: string;
+  ua: string;
+  task: string; // "en" means translate to English
+}
+
+export interface TrainingTasksResponse {
+  words: TrainingTask[];
+}
+
+export interface TrainingAnswer {
+  _id: string;
+  en: string;
+  ua: string;
+}
+
+export interface TrainingResult {
+  correctAnswers: number;
+  mistakes: number;
+  totalAnswers: number;
+}

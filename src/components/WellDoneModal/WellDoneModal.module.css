@@ -1,0 +1,162 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(18, 20, 23, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 16px;
+}
+
+.modalContent {
+  position: relative;
+  background-color: var(--intense-green);
+  border-radius: 30px;
+  padding: 48px 32px;
+  max-width: 628px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.closeButton {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  color: var(--whiteFc);
+  cursor: pointer;
+  padding: 4px;
+  line-height: 1;
+  transition: opacity 0.3s;
+}
+
+.closeButton:hover {
+  opacity: 0.7;
+}
+
+.title {
+  font-family: "MPFD600", sans-serif;
+  font-size: 32px;
+  line-height: 1.2;
+  color: var(--whiteFc);
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.resultsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  margin-bottom: 32px;
+}
+
+.resultsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.columnTitle {
+  font-family: "MPFD500", sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--whiteFc);
+  opacity: 0.8;
+}
+
+.wordList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.wordItem {
+  font-family: "MPFD500", sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--whiteFc);
+}
+
+.illustration {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bookImage {
+  max-width: 200px;
+  height: auto;
+}
+
+.buttonGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+}
+
+.saveButton {
+  display: inline-flex;
+  padding: 16px 139px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 30px;
+  background: var(--whiteFc);
+  color: var(--black);
+  font-family: "MPFD700";
+  font-size: 16px;
+  line-height: 1.5;
+  width: 100%;
+  max-width: 343px;
+  border: none;
+}
+
+.saveButton:hover {
+  background: var(--whiteF8);
+}
+
+.cancelButton {
+  display: inline-flex;
+  padding: 16px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 30px;
+  background: transparent;
+  color: var(--whiteFc);
+  font-family: "MPFD700";
+  font-size: 16px;
+  line-height: 1.5;
+  text-decoration: underline;
+  border: none;
+}
+
+@media screen and (max-width: 767px) {
+  .resultsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .modalContent {
+    padding: 32px 24px;
+  }
+
+  .title {
+    font-size: 24px;
+  }
+}
