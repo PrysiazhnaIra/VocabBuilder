@@ -6,6 +6,9 @@ import type {
   GetWordsParams,
   UpdateWordBody,
   Word,
+  TrainingTasksResponse,
+  TrainingAnswer,
+  TrainingResult,
 } from "../../types/types";
 import { baseQueryWithAuth } from "./baseQuery";
 
@@ -88,6 +91,19 @@ export const wordApi = createApi({
       }),
       invalidatesTags: ["Words"],
     }),
+
+    getTasks: builder.query<TrainingTasksResponse, void>({
+      query: () => "/words/tasks",
+    }),
+
+    submitAnswers: builder.mutation<TrainingResult, TrainingAnswer[]>({
+      query: (answers) => ({
+        url: "/words/answers",
+        method: "POST",
+        body: answers,
+      }),
+      invalidatesTags: ["Words"],
+    }),
   }),
 });
 
@@ -98,4 +114,6 @@ export const {
   useDeleteWordMutation,
   useUpdateWordMutation,
   useAddWordMutation,
+  useGetTasksQuery,
+  useSubmitAnswersMutation,
 } = wordApi;

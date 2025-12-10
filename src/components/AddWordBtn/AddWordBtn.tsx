@@ -8,18 +8,21 @@ export default function AddWordBtn() {
   const [isAddWordModalOpen, setIsAddWordModalOpen] = useState(false);
 
   return (
-    <Button className={s.addWordBtn}>
-      <div
-        className={s.addWordBtnWrapper}
+    <>
+      <Button
+        className={s.addWordBtn}
         onClick={() => setIsAddWordModalOpen(true)}
+        type="button"
       >
-        <p>Add word</p>
-        <Icon name="icon-plus" className={s.icon} />
-      </div>
+        <div className={s.addWordBtnWrapper}>
+          <p>Add word</p>
+          <Icon name="icon-plus" className={s.icon} />
+        </div>
+      </Button>
 
       {isAddWordModalOpen && (
         <AddWordModal onClose={() => setIsAddWordModalOpen(false)} />
       )}
-    </Button>
+    </>
   );
 }
