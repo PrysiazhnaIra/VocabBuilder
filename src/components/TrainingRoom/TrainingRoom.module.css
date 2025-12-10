@@ -1,88 +1,81 @@
 .container {
   display: flex;
   flex-direction: column;
-  gap: 32px;
-  padding: 32px 16px;
+  padding: 22px;
   max-width: 600px;
   margin: 0 auto;
+  border-radius: 8px;
+  background-color: var(--white);
 }
 
 .inputSection {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-}
-
-.label {
-  font-family: "MPFD500", sans-serif;
-  font-size: 16px;
-  line-height: 1.5;
-  color: var(--black);
-}
-
-.input {
-  padding: 16px 18px;
-  border: 1px solid var(--border-grey);
-  border-radius: 15px;
-  font-family: "MPFD500", sans-serif;
-  font-size: 16px;
-  line-height: 1.5;
-  color: var(--black);
-  background-color: var(--white);
-  transition: border-color 0.3s;
-}
-
-.input:focus {
-  border-color: var(--intense-green);
-  outline: none;
-}
-
-.input::placeholder {
-  color: var(--light-grey);
-}
-
-.wordSection {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.wordCard {
-  display: flex;
-  flex-direction: column;
   gap: 16px;
-  padding: 32px;
-  background-color: var(--whiteF8);
-  border-radius: 15px;
-  border: 1px solid var(--border-grey);
-  min-width: 280px;
-  text-align: center;
+  border-bottom: 1px solid #dbdbdb;
+  padding: 22px 22px 18px 22px;
+}
+
+.inputControls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.input{
+  font-family: "MPFD500", sans-serif;
+  font-size: 20px;
+  line-height: 1.5;
+  color: var(--black);
+  padding-bottom: 106px;
+
+}
+
+input::placeholder {
+  font-family: "MPFD500", sans-serif;
+  font-size: 20px;
+  line-height: 1.5;
+  color: var(--black);
+}
+
+.wordSection{
+
+}
+
+  
+.wordCard {
+display: flex;
+flex-direction: column;
+gap: 103px;
+padding: 22px 22px 18px 22px;
+
 }
 
 .word {
-  font-family: "MPFD600", sans-serif;
-  font-size: 20px;
-  line-height: 1.2;
+  font-family: "MPFD500", sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
   color: var(--black);
 }
 
 .languageIndicator {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
   gap: 8px;
 }
 
-.flagIcon {
-  font-size: 24px;
-  line-height: 1;
+.icon {
+  height: 28px;
+  width: 28px;
 }
 
 .language {
   font-family: "MPFD500", sans-serif;
   font-size: 14px;
   line-height: 1.5;
-  color: var(--light-grey);
+  color: var(--black);
 }
 
 .buttonGroup {
@@ -90,6 +83,7 @@
   flex-direction: column;
   gap: 16px;
   align-items: center;
+  margin-top: 116px;
 }
 
 .saveButton {
@@ -127,17 +121,20 @@
 
 .nextButton {
   display: inline-flex;
-  padding: 12px 24px;
-  justify-content: center;
   align-items: center;
   gap: 8px;
-  border-radius: 30px;
-  background: var(--background-green);
-  color: var(--black);
-  font-family: "MPFD700";
+  background: transparent;
+  border: none;
+  color: var(--light-grey);
+  font-family: "MPFD500";
   font-size: 16px;
   line-height: 1.5;
-  align-self: flex-end;
+  cursor: pointer;
+  padding: 0;
+}
+
+.nextButton:hover {
+  color: var(--intense-green);
 }
 
 .arrow {

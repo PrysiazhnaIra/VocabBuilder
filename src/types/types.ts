@@ -44,12 +44,13 @@ export type AddWordBody = WordBodyPayload;
 
 export interface TrainingTask {
   _id: string;
+  en: string;
   ua: string;
-  task: string; // "en" means translate to English
+  task: string;
 }
 
 export interface TrainingTasksResponse {
-  words: TrainingTask[];
+  tasks: TrainingTask[];
 }
 
 export interface TrainingAnswer {

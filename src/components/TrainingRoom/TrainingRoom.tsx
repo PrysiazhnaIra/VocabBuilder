@@ -5,7 +5,7 @@ import Icon from "../Icon/Icon";
 
 interface TrainingRoomProps {
   word: string;
-  onNext?: () => void;
+  onNext?: (translation: string) => void;
   onSave: (translation: string) => void;
   isLastTask: boolean;
 }
@@ -20,7 +20,7 @@ export default function TrainingRoom({
 
   const handleNext = () => {
     if (onNext) {
-      onNext();
+      onNext(translation);
       setTranslation("");
     }
   };
@@ -33,18 +33,28 @@ export default function TrainingRoom({
   return (
     <div className={s.container}>
       <div className={s.inputSection}>
-        <label htmlFor="translation" className={s.label}>
-          Введіть переклад
-        </label>
         <input
           id="translation"
           type="text"
           value={translation}
           onChange={(e) => setTranslation(e.target.value)}
           className={s.input}
-          placeholder="..."
+          placeholder="Введіть переклад"
           autoFocus
         />
+        
+        <div className={s.inputControls}>
+           {!isLastTask && (
+            <button onClick={handleNext} className={s.nextButton} type="button">
+              Next
+              <span className={s.arrow}>→</span>
+            </button>
+          )}
+           <div className={s.languageIndicator}>
+            <Icon name="icon-ukraine" className={s.icon} />
+            <span className={s.language}>Ukrainian</span>
+          </div>
+        </div>
       </div>
 
       <div className={s.wordSection}>
@@ -58,12 +68,6 @@ export default function TrainingRoom({
       </div>
 
       <div className={s.buttonGroup}>
-        {!isLastTask && (
-          <Button onClick={handleNext} className={s.nextButton}>
-            Next
-            <span className={s.arrow}>→</span>
-          </Button>
-        )}
         <Button onClick={handleSave} className={s.saveButton} type="button">
           Save
         </Button>
