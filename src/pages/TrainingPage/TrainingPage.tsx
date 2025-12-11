@@ -21,7 +21,7 @@ export default function TrainingPage() {
   const [showResults, setShowResults] = useState(false);
   const [results, setResults] = useState<TrainingResult | null>(null);
 
-  const tasks = tasksResponse?.words || [];
+  const tasks = tasksResponse?.tasks || [];
 
   useEffect(() => {
     console.log("Training Tasks Response:", tasksResponse);
@@ -34,8 +34,20 @@ export default function TrainingPage() {
     }
   }, [isError]);
 
-  const handleNext = () => {
-    if (tasks && currentTaskIndex < tasks.length - 1) {
+  const handleNext = (translation?: string) => {
+    if (!tasks) return;
+
+    if (translation && translation.trim()) {
+      const currentTask = tasks[currentTaskIndex];
+      const newAnswer: TrainingAnswer = {
+        _id: currentTask._id,
+        en: currentTask.en,
+        ua: translation,
+      };
+      setAnswers((prev) => [...prev, newAnswer]);
+    }
+
+    if (currentTaskIndex < tasks.length - 1) {
       setCurrentTaskIndex((prev) => prev + 1);
     }
   };
@@ -45,12 +57,11 @@ export default function TrainingPage() {
 
     const currentTask = tasks[currentTaskIndex];
 
-    // Add answer to the list if translation is provided
     if (translation.trim()) {
       const newAnswer: TrainingAnswer = {
         _id: currentTask._id,
-        en: translation, // User's English translation
-        ua: currentTask.ua, // Original Ukrainian word
+        en: currentTask.en, 
+        ua: translation,
       };
       setAnswers((prev) => [...prev, newAnswer]);
     }
@@ -63,8 +74,8 @@ export default function TrainingPage() {
               ...answers,
               {
                 _id: currentTask._id,
-                en: translation,
-                ua: currentTask.ua,
+                en: currentTask.en,
+                ua: translation,
               },
             ]
           : answers;
@@ -95,7 +106,7 @@ export default function TrainingPage() {
 
   const progress =
     tasks && tasks.length > 0
-      ? Math.round(((currentTaskIndex + 1) / tasks.length) * 100)
+      ? Math.round((answers.length / tasks.length) * 100)
       : 0;
 
   if (isLoading) {
@@ -146,11 +157,11 @@ export default function TrainingPage() {
   return (
     <div className={s.container}>
       <div className={s.header}>
-        <ProgressBar progress={progress} size={26} strokeWidth={3} />
+        <ProgressBar progress={progress} size={44} strokeWidth={3} />
       </div>
 
       <TrainingRoom
-        word={tasks[currentTaskIndex].ua}
+        word={tasks[currentTaskIndex].en}
         onNext={currentTaskIndex < tasks.length - 1 ? handleNext : undefined}
         onSave={handleSave}
         isLastTask={currentTaskIndex === tasks.length - 1}
