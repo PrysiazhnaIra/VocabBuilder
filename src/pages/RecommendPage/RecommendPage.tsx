@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import Dashboard from "../../components/Dashboard/Dashboard";
 import WordsTable from "../../components/WordsTable/WordsTable";
 import s from "./RecommendPage.module.css";
-import { useGetOwnWordsQuery } from "../../redux/api/wordApi";
+import { useGetWordsQuery } from "../../redux/api/wordApi";
 import useWordFiltering from "../../hooks/useWordFiltering";
 import WordsPagination from "../../components/WordsPagination/WordsPagination";
 
@@ -28,7 +28,7 @@ export default function RecommendPage() {
     [currentPage, debouncedSearchTerm, selectedCategory]
   );
 
-  const { data: allWords, isLoading, isError } = useGetOwnWordsQuery(queryParams);
+  const { data: allWords, isLoading, isError } = useGetWordsQuery(queryParams);
 
   useEffect(() => {
     if (allWords) {
