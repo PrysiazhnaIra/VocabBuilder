@@ -4,7 +4,7 @@ import Dashboard from "../../components/Dashboard/Dashboard";
 import WordsPagination from "../../components/WordsPagination/WordsPagination";
 import WordsTable from "../../components/WordsTable/WordsTable";
 import AddWordModal from "../../components/AddWordModal/AddWordModal";
-import { useGetWordsQuery } from "../../redux/api/wordApi";
+import { useGetOwnWordsQuery } from "../../redux/api/wordApi";
 import s from "./DictionaryPage.module.css";
 import useWordFiltering from "../../hooks/useWordFiltering";
 
@@ -39,7 +39,7 @@ export default function DictionaryPage() {
     [currentPage, debouncedSearchTerm, selectedCategory]
   );
 
-  const { data: allWords, isLoading, isError } = useGetWordsQuery(queryParams);
+  const { data: allWords, isLoading, isError } = useGetOwnWordsQuery(queryParams);
 
   useEffect(() => {
     if (allWords) {

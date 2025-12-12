@@ -92,6 +92,14 @@ export const wordApi = createApi({
       invalidatesTags: ["Words"],
     }),
 
+    addWordFromId: builder.mutation<Word, string>({
+      query: (wordId) => ({
+        url: `/words/add/${wordId}`,
+        method: "POST",
+      }),
+      invalidatesTags: ["Words"],
+    }),
+
     getTasks: builder.query<TrainingTasksResponse, void>({
       query: () => "/words/tasks",
     }),
@@ -114,6 +122,7 @@ export const {
   useDeleteWordMutation,
   useUpdateWordMutation,
   useAddWordMutation,
+  useAddWordFromIdMutation,
   useGetTasksQuery,
   useSubmitAnswersMutation,
 } = wordApi;
