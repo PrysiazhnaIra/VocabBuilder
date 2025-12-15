@@ -8,7 +8,7 @@ import {
   useGetTasksQuery,
   useSubmitAnswersMutation,
 } from "../../redux/api/wordApi";
-import type { TrainingAnswer, TrainingResult } from "../../types/types";
+import type { TrainingAnswer } from "../../types/types";
 import s from "./TrainingPage.module.css";
 
 export default function TrainingPage() {
@@ -19,14 +19,16 @@ export default function TrainingPage() {
   const [currentTaskIndex, setCurrentTaskIndex] = useState(0);
   const [answers, setAnswers] = useState<TrainingAnswer[]>([]);
   const [showResults, setShowResults] = useState(false);
-  const [results, setResults] = useState<TrainingResult | null>(null);
 
-  const tasks = tasksResponse?.tasks || [];
+  const [apiResult, setApiResult] = useState<any>(null);
+
+  const tasks = (tasksResponse?.tasks || []).filter(
+    (task) => task.en && task.en.trim() !== ""
+  );
 
   useEffect(() => {
-    console.log("Training Tasks Response:", tasksResponse);
-    console.log("Parsed Tasks:", tasks);
-  }, [tasksResponse, tasks]);
+    // Debug logic removed
+  }, [showResults, tasks, answers, apiResult]);
 
   useEffect(() => {
     if (isError) {
@@ -60,7 +62,7 @@ export default function TrainingPage() {
     if (translation.trim()) {
       const newAnswer: TrainingAnswer = {
         _id: currentTask._id,
-        en: currentTask.en, 
+        en: currentTask.en,
         ua: translation,
       };
       setAnswers((prev) => [...prev, newAnswer]);
@@ -81,7 +83,7 @@ export default function TrainingPage() {
           : answers;
 
         const result = await submitAnswers(finalAnswers).unwrap();
-        setResults(result);
+        setApiResult(result);
         setShowResults(true);
       } catch (error) {
         toast.error(
@@ -154,6 +156,8 @@ export default function TrainingPage() {
     );
   }
 
+
+
   return (
     <div className={s.container}>
       <div className={s.header}>
@@ -162,13 +166,26 @@ export default function TrainingPage() {
 
       <TrainingRoom
         word={tasks[currentTaskIndex].en}
-        onNext={currentTaskIndex < tasks.length - 1 ? handleNext : undefined}
+        onNext={currentTaskIndex < tasks.length - 1 ? handleNext : handleSave}
         onSave={handleSave}
         isLastTask={currentTaskIndex === tasks.length - 1}
       />
 
-      {showResults && results && (
-        <WellDoneModal results={results} onClose={handleCloseResults} />
+      {showResults && (
+        <WellDoneModal
+          correctWords={
+            Array.isArray(apiResult)
+              ? apiResult.filter((r) => r.isDone).map((r) => r.en)
+              : []
+          }
+          incorrectWords={
+            Array.isArray(apiResult)
+              ? apiResult.filter((r) => !r.isDone).map((r) => r.en)
+              : []
+          }
+          onClose={handleCloseResults}
+          onSave={handleCloseResults}
+        />
       )}
     </div>
   );

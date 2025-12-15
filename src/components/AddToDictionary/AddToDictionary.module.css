@@ -2,10 +2,29 @@
   display: none;
 }
 
+.wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+}
+
 .icon {
   width: 20px;
   height: 20px;
   stroke: var(--intense-green);
+  transition: stroke 0.3s ease;
+}
+
+.wrapper:hover .text {
+  color: var(--intense-green);
+}
+
+.wrapper:hover .icon {
+  stroke: var(--black);
 }
 
 @media screen and (min-width: 768px) {

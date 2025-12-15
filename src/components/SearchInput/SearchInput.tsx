@@ -13,7 +13,6 @@ export default function SearchInput({
 }: SearchInputProps) {
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     onSearchChange(event.target.value);
-    console.log("Search text", event.target.value);
   };
   return (
     <div className={s.inputWrapper}>

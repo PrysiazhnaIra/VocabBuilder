@@ -5,6 +5,7 @@ import Icon from "../Icon/Icon";
 import Button from "../Button/Button";
 import EditWordModal from "../EditWordModal/EditWordModal";
 import type { Word } from "../../types/types";
+import { toast } from "react-toastify";
 
 export default function ActionsBtn({ wordData }: { wordData: Word }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -22,8 +23,6 @@ export default function ActionsBtn({ wordData }: { wordData: Word }) {
       await deleteWord(wordId).unwrap();
 
       setIsModalOpen(false);
-
-      console.log(`Word with ID ${wordId} deleted successfully.`);
     } catch (error) {
       setIsModalOpen(false);
 
@@ -37,11 +36,11 @@ export default function ActionsBtn({ wordData }: { wordData: Word }) {
       console.error("Failed to delete the word:", error);
 
       if (status === 404) {
-        console.log(
+        toast.error(
           "Something went wrong. The word could be deleted earlier. "
         );
       } else {
-        console.log(` Error deleting: ${message}`);
+        toast.error(`Error deleting: ${message}`);
       }
     }
   };

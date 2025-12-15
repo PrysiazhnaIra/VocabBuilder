@@ -1,16 +1,19 @@
 import Button from "../Button/Button";
 import ModalPortal from "../ModalPortal/ModalPortal";
 import s from "./WellDoneModal.module.css";
-import type { TrainingResult } from "../../types/types";
 
 interface WellDoneModalProps {
-  results: TrainingResult;
-  onClose: () => void;
+  correctWords: string[];
+  incorrectWords: string[];
+  onClose: () => void; // This will now act as "Cancel" or just closing without saving? The prompt implies Save does the saving.
+  onSave: () => void;
 }
 
 export default function WellDoneModal({
-  results,
+  correctWords,
+  incorrectWords,
   onClose,
+  onSave,
 }: WellDoneModalProps) {
   const handleKeyDown = (event: React.KeyboardEvent) => {
     if (event.key === "Escape") {
@@ -22,7 +25,6 @@ export default function WellDoneModal({
     <ModalPortal>
       <div
         className={s.overlay}
-        onClick={onClose}
         role="dialog"
         aria-modal="true"
         onKeyDown={handleKeyDown}
@@ -35,29 +37,25 @@ export default function WellDoneModal({
 
           <h2 className={s.title}>Well done</h2>
 
-          <div className={s.resultsContainer}>
-            <div className={s.resultsGrid}>
+          <div className={s.contentWrapper}>
+            <div className={s.resultsContainer}>
               <div className={s.column}>
                 <h3 className={s.columnTitle}>Correct answers:</h3>
                 <ul className={s.wordList}>
-                  {Array.from({ length: results.correctAnswers }).map(
-                    (_, index) => (
-                      <li key={`correct-${index}`} className={s.wordItem}>
-                        {/* Placeholder - in real app would show actual words */}
-                        Word {index + 1}
-                      </li>
-                    )
-                  )}
+                  {correctWords.map((word, index) => (
+                    <li key={`correct-${index}`} className={s.wordItem}>
+                      {word}
+                    </li>
+                  ))}
                 </ul>
               </div>
 
               <div className={s.column}>
                 <h3 className={s.columnTitle}>Mistakes:</h3>
                 <ul className={s.wordList}>
-                  {Array.from({ length: results.mistakes }).map((_, index) => (
+                  {incorrectWords.map((word, index) => (
                     <li key={`mistake-${index}`} className={s.wordItem}>
-                      {/* Placeholder - in real app would show actual words */}
-                      Word {index + 1}
+                      {word}
                     </li>
                   ))}
                 </ul>
@@ -81,7 +79,7 @@ export default function WellDoneModal({
           </div>
 
           <div className={s.buttonGroup}>
-            <Button onClick={onClose} className={s.saveButton}>
+            <Button onClick={onSave} className={s.saveButton}>
               Save
             </Button>
             <Button onClick={onClose} className={s.cancelButton}>

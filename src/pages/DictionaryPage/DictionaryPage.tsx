@@ -7,6 +7,7 @@ import AddWordModal from "../../components/AddWordModal/AddWordModal";
 import { useGetOwnWordsQuery } from "../../redux/api/wordApi";
 import s from "./DictionaryPage.module.css";
 import useWordFiltering from "../../hooks/useWordFiltering";
+import { toast } from "react-toastify";
 
 const WORDS_PER_PAGE = 7;
 
@@ -43,10 +44,10 @@ export default function DictionaryPage() {
 
   useEffect(() => {
     if (allWords) {
-      console.log("allWords", allWords);
+      toast.success("Words fetched successfully!");
     }
     if (isError) {
-      console.error("Error fetching words", isError);
+      toast.error("Error fetching words");
     }
   }, [allWords, isError]);
 
