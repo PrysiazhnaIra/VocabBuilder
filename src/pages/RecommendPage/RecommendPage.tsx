@@ -5,6 +5,7 @@ import s from "./RecommendPage.module.css";
 import { useGetWordsQuery } from "../../redux/api/wordApi";
 import useWordFiltering from "../../hooks/useWordFiltering";
 import WordsPagination from "../../components/WordsPagination/WordsPagination";
+import { toast } from "react-toastify";
 
 const WORDS_PER_PAGE = 7;
 
@@ -32,10 +33,10 @@ export default function RecommendPage() {
 
   useEffect(() => {
     if (allWords) {
-      console.log("allOwnWords", allWords);
+      toast.success("Words fetched successfully!");
     }
     if (isError) {
-      console.error("Error fetching words", isError);
+      toast.error("Error fetching words");
     }
   }, [allWords, isError]);
 

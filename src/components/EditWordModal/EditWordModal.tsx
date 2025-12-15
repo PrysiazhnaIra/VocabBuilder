@@ -25,12 +25,11 @@ export default function EditWordModal({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Saving changes for word:", wordToEdit);
 
     if (!wordToEdit._id) return;
     if (!changedWord) return;
     if (isError) {
-      console.log("error", isError);
+      toast.error(`Error updating the word. ${isError}`);
     }
 
     const dataToUpdate: UpdateWordBody = {
@@ -43,7 +42,6 @@ export default function EditWordModal({
       wordId: wordToEdit._id,
       editedBody: dataToUpdate,
     });
-    console.log("Update response:", res);
     if ("error" in res) {
       const err: any = res.error;
       const message =

@@ -44,7 +44,6 @@ export default function AddWordForm({ onClose }: { onClose: () => void }) {
       await addWord(payload).unwrap();
 
       toast.success("Word added successfully!");
-      console.log("payload", payload);
       onClose();
     } catch (error: unknown) {
       let errorMessage = "Error adding a word.";

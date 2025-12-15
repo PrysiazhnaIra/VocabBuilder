@@ -17,11 +17,13 @@
   background-color: var(--intense-green);
   border-radius: 30px;
   padding: 48px 32px;
-  max-width: 628px;
+  max-width: 900px; /* Increased width to accommodate image side-by-side */
   width: 100%;
   max-height: 90vh;
   overflow-y: auto;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
 }
 
 .closeButton {
@@ -48,20 +50,21 @@
   line-height: 1.2;
   color: var(--whiteFc);
   text-align: center;
-  margin-bottom: 32px;
+  margin-bottom: 40px;
 }
 
-.resultsContainer {
+.contentWrapper {
   display: flex;
   flex-direction: column;
   gap: 32px;
   margin-bottom: 32px;
 }
 
-.resultsGrid {
+.resultsContainer {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 32px;
+  width: 100%;
 }
 
 .column {
@@ -110,11 +113,12 @@
   flex-direction: column;
   gap: 16px;
   align-items: center;
+  width: 100%;
 }
 
 .saveButton {
   display: inline-flex;
-  padding: 16px 139px;
+  padding: 16px 60px; /* Adjusted padding */
   justify-content: center;
   align-items: center;
   border-radius: 30px;
@@ -124,7 +128,6 @@
   font-size: 16px;
   line-height: 1.5;
   width: 100%;
-  max-width: 343px;
   border: none;
 }
 
@@ -147,9 +150,27 @@
   border: none;
 }
 
+@media screen and (min-width: 768px) {
+  .contentWrapper {
+    flex-direction: row;
+    align-items: flex-end; /* Align bottom to match image baseline roughly */
+    justify-content: space-between;
+  }
+  
+  .resultsContainer {
+    flex: 2;
+    padding-right: 20px;
+  }
+
+  .illustration {
+    flex: 1;
+    justify-content: flex-end;
+  }
+}
+
 @media screen and (max-width: 767px) {
-  .resultsGrid {
-    grid-template-columns: 1fr;
+  .resultsContainer {
+    grid-template-columns: 1fr; /* Stack columns on mobile */
   }
 
   .modalContent {
@@ -158,5 +179,6 @@
 
   .title {
     font-size: 24px;
+    margin-bottom: 24px;
   }
 }

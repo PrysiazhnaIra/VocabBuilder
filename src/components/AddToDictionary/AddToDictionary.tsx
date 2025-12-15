@@ -14,8 +14,17 @@ export default function AddToDictionary({ wordData }: { wordData: Word }) {
     try {
       await addWordFromId(wordData._id).unwrap();
       toast.success("Word added to dictionary!");
-    } catch (error) {
-      toast.error("Failed to add word.");
+    } catch (error: any) {
+      // Assuming a 409 or 400 status for duplicate, or just generic handling
+      // If the backend returns a message, we could use it, but user requested specific text.
+      // We'll use the user's text for now as a catch-all for "failed to add" which usually implies duplicate in this context.
+      const errorMessage = error?.data?.message || "Failed to add word";
+      
+      if (errorMessage.includes("exists") || errorMessage.includes("duplicate") || error.status === 409 || error.status === 400) {
+         toast.warning("This word is already in your dictionary. Choose another word for practice");
+      } else {
+         toast.error("Failed to add word.");
+      }
     }
   };
 

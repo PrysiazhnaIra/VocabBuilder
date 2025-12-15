@@ -14,7 +14,6 @@ export default function TrainingRoom({
   word,
   onNext,
   onSave,
-  isLastTask,
 }: TrainingRoomProps) {
   const [translation, setTranslation] = useState("");
 
@@ -44,12 +43,10 @@ export default function TrainingRoom({
         />
         
         <div className={s.inputControls}>
-           {!isLastTask && (
             <button onClick={handleNext} className={s.nextButton} type="button">
               Next
               <span className={s.arrow}>→</span>
             </button>
-          )}
            <div className={s.languageIndicator}>
             <Icon name="icon-ukraine" className={s.icon} />
             <span className={s.language}>Ukrainian</span>
