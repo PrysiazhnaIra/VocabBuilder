@@ -1,7 +1,9 @@
 import { useState } from "react";
 import Button from "../Button/Button";
+import ConfirmModal from "../ConfirmModal/ConfirmModal";
 import s from "./TrainingRoom.module.css";
 import Icon from "../Icon/Icon";
+import { useNavigate } from "react-router-dom";
 
 interface TrainingRoomProps {
   word: string;
@@ -16,6 +18,9 @@ export default function TrainingRoom({
   onSave,
 }: TrainingRoomProps) {
   const [translation, setTranslation] = useState("");
+  const [showSaveModal, setShowSaveModal] = useState(false);
+  const [showCancelModal, setShowCancelModal] = useState(false);
+  const navigate = useNavigate();
 
   const handleNext = () => {
     if (onNext) {
@@ -24,9 +29,23 @@ export default function TrainingRoom({
     }
   };
 
-  const handleSave = () => {
+  const handleSaveClick = () => {
+    setShowSaveModal(true);
+  };
+
+  const handleCancelClick = () => {
+    setShowCancelModal(true);
+  };
+
+  const handleConfirmSave = () => {
     onSave(translation);
     setTranslation("");
+    navigate("/recommend");
+  };
+
+  const handleConfirmCancel = () => {
+    setTranslation("");
+    navigate("/recommend");
   };
 
   return (
@@ -65,13 +84,37 @@ export default function TrainingRoom({
       </div>
 
       <div className={s.buttonGroup}>
-        <Button onClick={handleSave} className={s.saveButton} type="button">
+        <Button onClick={handleSaveClick} className={s.saveButton} type="button">
           Save
         </Button>
-        <Button onClick={() => setTranslation("")} className={s.cancelButton}>
+        <Button onClick={handleCancelClick} className={s.cancelButton} type="button">
           Cancel
         </Button>
       </div>
+
+      {showSaveModal && (
+        <ConfirmModal
+          onClose={() => setShowSaveModal(false)}
+          onConfirm={handleConfirmSave}
+          title="Save answers?"
+          message="Are you sure you want to save all your answers? This action will submit your training results."
+          confirmText="Save"
+          cancelText="Cancel"
+        />
+      )}
+
+      {showCancelModal && (
+        <ConfirmModal
+          onClose={() => setShowCancelModal(false)}
+          onConfirm={handleConfirmCancel}
+          title="Cancel training?"
+          message="Are you sure you want to cancel? All your progress will be lost and you will be redirected to the recommend page."
+          confirmText="Yes, cancel"
+          cancelText="No, continue"
+        />
+      )}
     </div>
   );
 }
+
+
