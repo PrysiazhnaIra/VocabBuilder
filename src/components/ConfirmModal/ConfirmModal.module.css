@@ -1,0 +1,79 @@
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 16px 0;
+}
+
+.title {
+  font-family: MPFD600;
+  font-size: 24px;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+  color: var(--white);
+  text-align: center;
+}
+
+.message {
+  font-family: MPFD400;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--white);
+  text-align: center;
+}
+
+.buttonGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.confirmButton {
+  border-radius: 30px;
+  padding: 12px 60px;
+  width: 100%;
+  background: var(--white);
+  font-family: MPFD700;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--black);
+}
+
+.cancelButton {
+  border: 1px solid rgba(252, 252, 252, 0.4);
+  border-radius: 30px;
+  padding: 12px 45px;
+  width: 100%;
+  font-family: MPFD700;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--white);
+}
+
+@media screen and (min-width: 768px) {
+  .content {
+    padding: 0;
+  }
+
+  .buttonGroup {
+    flex-direction: row;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 16px;
+  }
+
+  .confirmButton,
+  .cancelButton {
+    width: auto;
+    min-width: 145px;
+  }
+
+  .confirmButton {
+    padding: 12px 60px;
+  }
+
+  .cancelButton {
+    padding: 12px 45px;
+  }
+}
