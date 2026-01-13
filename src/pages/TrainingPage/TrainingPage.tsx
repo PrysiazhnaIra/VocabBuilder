@@ -27,7 +27,7 @@ export default function TrainingPage() {
   );
 
   useEffect(() => {
-    // Debug logic removed
+
   }, [showResults, tasks, answers, apiResult]);
 
   useEffect(() => {
@@ -59,42 +59,33 @@ export default function TrainingPage() {
 
     const currentTask = tasks[currentTaskIndex];
 
-    if (translation.trim()) {
-      const newAnswer: TrainingAnswer = {
-        _id: currentTask._id,
-        en: currentTask.en,
-        ua: translation,
-      };
-      setAnswers((prev) => [...prev, newAnswer]);
-    }
+    // building final answers array including current translation if provided
+    const finalAnswers = translation.trim()
+      ? [
+          ...answers,
+          {
+            _id: currentTask._id,
+            en: currentTask.en,
+            ua: translation,
+          },
+        ]
+      : answers;
 
-    // If this is the last task, submit all answers
-    if (currentTaskIndex === tasks.length - 1) {
-      try {
-        const finalAnswers = translation.trim()
-          ? [
-              ...answers,
-              {
-                _id: currentTask._id,
-                en: currentTask.en,
-                ua: translation,
-              },
-            ]
-          : answers;
-
-        const result = await submitAnswers(finalAnswers).unwrap();
-        setApiResult(result);
-        setShowResults(true);
-      } catch (error) {
-        toast.error(
-          "Failed to save your progress. Redirecting to dictionary..."
-        );
-        setTimeout(() => navigate("/dictionary"), 2000);
-      }
-    } else {
-      // Move to next task
-      handleNext();
+    // submitting all answers to backend
+    try {
+      const result = await submitAnswers(finalAnswers).unwrap();
+      setApiResult(result);
+      setShowResults(true);
+    } catch (error) {
+      toast.error(
+        "Failed to save your progress. Redirecting to dictionary..."
+      );
+      setTimeout(() => navigate("/dictionary"), 2000);
     }
+  };
+
+  const handleCancel = () => {
+    navigate("/dictionary");
   };
 
   const handleCloseResults = () => {
@@ -108,7 +99,7 @@ export default function TrainingPage() {
 
   const progress =
     tasks && tasks.length > 0
-      ? Math.round((answers.length / tasks.length) * 100)
+      ? Math.round(((currentTaskIndex + 1) / tasks.length) * 100)
       : 0;
 
   if (isLoading) {
@@ -156,8 +147,6 @@ export default function TrainingPage() {
     );
   }
 
-
-
   return (
     <div className={s.container}>
       <div className={s.header}>
@@ -166,8 +155,9 @@ export default function TrainingPage() {
 
       <TrainingRoom
         word={tasks[currentTaskIndex].en}
-        onNext={currentTaskIndex < tasks.length - 1 ? handleNext : handleSave}
+        onNext={currentTaskIndex < tasks.length - 1 ? handleNext : undefined}
         onSave={handleSave}
+        onCancel={handleCancel}
         isLastTask={currentTaskIndex === tasks.length - 1}
       />
 
@@ -190,3 +180,4 @@ export default function TrainingPage() {
     </div>
   );
 }
+
