@@ -59,18 +59,18 @@ export default function TrainingRoom({
             value={translation}
             onChange={(e) => setTranslation(e.target.value)}
             className={s.input}
-            placeholder="Введіть переклад"
+            placeholder="Введіть переклад ..."
             autoFocus
           />
           
           <div className={s.inputControls}>
-            {!isLastTask && (
+            {!isLastTask ? (
               <button onClick={handleNext} className={s.nextButton} type="button">
                 Next
                 <span className={s.arrow}>→</span>
               </button>
-            )}
-            <div className={s.languageIndicator}>
+            ): (<p></p>)}
+            <div className={`${s.languageIndicator} ${s.uaIndicator}`}>
               <Icon name="icon-ukraine" className={s.icon} />
               <span className={s.language}>Ukrainian</span>
             </div>
