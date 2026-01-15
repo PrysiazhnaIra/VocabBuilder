@@ -5,6 +5,8 @@ import NavItem from "../NavItem/NavItem";
 import s from "./Header.module.css";
 import Sidebar from "../Sidebar/Sidebar";
 import Logo from "../Logo/Logo";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth";
 
 interface HeaderProp {
   isLoggedIn: boolean;
@@ -12,15 +14,22 @@ interface HeaderProp {
 
 export default function Header({ isLoggedIn }: HeaderProp) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const { user } = useAuth();
   const toggleSidebar = () => {
     setIsSidebarOpen((prev) => !prev);
   };
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!isLoggedIn) {
       setIsSidebarOpen(false);
     }
   }, [isLoggedIn]);
+
+  const openUserProfile = () => {
+    navigate("/profile");
+  }
 
   return (
     <>
@@ -37,8 +46,9 @@ export default function Header({ isLoggedIn }: HeaderProp) {
                 </ul>
 
                 <div className={s.rightSide}>
-                  <div className={s.userMenuWrapper}>
-                    <p>Name</p>
+                  <div className={s.userMenuWrapper} >
+                    <div className={s.userWrapper} onClick={openUserProfile}>
+                    <p>{user.name || "User"}</p>
                     <div className={s.userIconWrapper}>
                       <Icon
                         name="icon-user"
@@ -46,6 +56,7 @@ export default function Header({ isLoggedIn }: HeaderProp) {
                         height={20}
                         className={s.userIcon}
                       />
+                      </div>
                     </div>
                     <button className={s.navToggle} onClick={toggleSidebar}>
                       <Icon

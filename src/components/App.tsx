@@ -1,21 +1,26 @@
-import { Suspense } from "react";
-import DictionaryPage from "../pages/DictionaryPage/DictionaryPage";
-import RecommendPage from "../pages/RecommendPage/RecommendPage";
-import TrainingPage from "../pages/TrainingPage/TrainingPage";
-
+import { lazy, Suspense } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
-import NotFoundPage from "../pages/NotFoundPage/NotFoundPage";
-import Header from "./Header/Header";
+import { ToastContainer } from "react-toastify";
 import { useAuth } from "../hooks/useAuth";
 import PublicRoute from "./Routes/PublicRoute";
 import PrivateRoute from "./Routes/PrivateRoute";
-import AuthPage from "../pages/AuthPage/AuthPage";
-import RegisterForm from "./RegisterForm/RegisterForm";
-import LoginForm from "./LoginForm/LoginForm";
-import { ToastContainer } from "react-toastify";
+
+
+const ProfilePage = lazy(() => import("../pages/ProfilePage/ProfilePage"));
+const AuthPage = lazy(() => import("../pages/AuthPage/AuthPage"));
+const RegisterForm = lazy(() => import("./RegisterForm/RegisterForm"));
+const LoginForm = lazy(() => import("./LoginForm/LoginForm"));
+const NotFoundPage = lazy(() => import("../pages/NotFoundPage/NotFoundPage"));
+const Header = lazy(() => import("./Header/Header"));
+const DictionaryPage = lazy(() => import("../pages/DictionaryPage/DictionaryPage"));
+const RecommendPage = lazy(() => import("../pages/RecommendPage/RecommendPage"));
+const TrainingPage = lazy(() => import("../pages/TrainingPage/TrainingPage"));
+
+
 
 export default function App() {
   const { isLoggedIn } = useAuth();
+  
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <ToastContainer
@@ -37,6 +42,7 @@ export default function App() {
             <Route path="/dictionary" element={<DictionaryPage />} />
             <Route path="/recommend" element={<RecommendPage />} />
             <Route path="/training" element={<TrainingPage />} />
+            <Route path="/profile" element={<ProfilePage />}/>
           </Route>
           <Route path="/*" element={<NotFoundPage />} />
         </Routes>

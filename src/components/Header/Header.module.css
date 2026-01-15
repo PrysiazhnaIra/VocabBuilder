@@ -15,6 +15,12 @@
   gap: 8px;
 }
 
+.userWrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 .userIconWrapper {
   width: 36px;
   height: 36px;
