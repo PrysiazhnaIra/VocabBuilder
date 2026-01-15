@@ -36,7 +36,7 @@ input::placeholder {
   font-family: "MPFD500", sans-serif;
   font-size: 20px;
   line-height: 1.5;
-  color: var(--black);
+  color: var(--light-grey);
 }
 
 .wordSection{
@@ -160,9 +160,6 @@ padding: 22px 22px 18px 22px;
     padding-bottom: 16px;
   }
 
-.input::placeholder{
-  color: var(--light-grey);
-}  
 
   .inputControls {
     flex-direction: column-reverse;
