@@ -3,13 +3,16 @@ import { authApi } from "../api/authApi";
 import { forceLogout } from "./authActions";
 
 const initialState = {
-  user: { name: null, email: null },
-  token: null,
+  user: { name: null as string | null, email: null as string | null },
+  token: null as string | null,
   isLoggedIn: false,
 };
 
 interface RehydratePayload {
-  token: string | null;
+  auth?: {
+    token: string | null;
+    user: { name: string | null; email: string | null };
+  };
 }
 
 const authSlice = createSlice({
@@ -34,8 +37,10 @@ const authSlice = createSlice({
           payload: RehydratePayload;
         };
 
-        const persistedToken = rehydrateAction.payload?.token;
-        if (persistedToken) {
+        const persistedAuth = rehydrateAction.payload?.auth;
+        if (persistedAuth?.token) {
+          state.token = persistedAuth.token;
+          state.user = persistedAuth.user || { name: null, email: null };
           state.isLoggedIn = true;
         }
       })
