@@ -1,7 +1,7 @@
 import * as yup from "yup";
 
 const emailPattern = /^([a-zA-Z0-9._%+-]+)@([a-zA-Z0-9.-]+)\.([a-zA-Z]{2,})$/;
-const passwordPattern = /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{7,}$/;
+const passwordPattern = /^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]{7,}$/;
 
 export const registerSchema = yup.object().shape({
   name: yup.string().required("Name is required"),
@@ -13,7 +13,7 @@ export const registerSchema = yup.object().shape({
     .string()
     .matches(
       passwordPattern,
-      "Password must be at least 7 characters with 6 letters and 1 digit"
+      "The password must consist of 6 English letters and 1 number.",
     )
     .required("Password is required"),
 });
@@ -27,7 +27,7 @@ export const loginSchema = yup.object().shape({
     .string()
     .matches(
       passwordPattern,
-      "Password must be at least 7 characters with 6 letters and 1 digit"
+      "The password must consist of 6 English letters and 1 number.",
     )
     .required("Password is required"),
 });

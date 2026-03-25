@@ -70,7 +70,7 @@
   --icon-fill: rgba(252, 252, 252, 0.7);
   --background-green: rgba(133, 170, 159, 0.1);
   --background-grey: rgba(18, 20, 23, 0.2);
-  --background-light-grey: E2E2E2;
+  --toastify-color-success: var(--light-green);
 }
 
 * {
@@ -189,4 +189,8 @@ p {
   p {
     font-size: 20px;
   }
+}
+
+.Toastify__toast--success .Toastify__progress-bar {
+  background-color: var(--intense-green) !important;
 }
