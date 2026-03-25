@@ -43,13 +43,10 @@ export default function DictionaryPage() {
   const { data: allWords, isLoading, isError } = useGetOwnWordsQuery(queryParams);
 
   useEffect(() => {
-    if (allWords) {
-      toast.success("Words fetched successfully!");
-    }
     if (isError) {
       toast.error("Error fetching words");
     }
-  }, [allWords, isError]);
+  }, [isError]);
 
   const handlePageChange = (newPage: number) => {
     if (newPage >= 1 && newPage <= (allWords?.totalPages || 1)) {

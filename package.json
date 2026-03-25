@@ -16,6 +16,7 @@
     "@types/yup": "^0.29.14",
     "axios": "^1.12.2",
     "dom": "^0.0.3",
+    "lucide-react": "^1.6.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-hook-form": "^7.65.0",

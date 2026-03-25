@@ -2,6 +2,7 @@ import { NavLink } from "react-router-dom";
 import Icon from "../Icon/Icon";
 import s from "./Sidebar.module.css";
 import LogoutBtn from "../LogoutBtn/LogoutBtn";
+import { useAuth } from "../../hooks/useAuth";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -11,7 +12,8 @@ interface SidebarProps {
 export default function Sidebar({ isOpen, onClose }: SidebarProps) {
   const sidebarClasses = `${s.sidebar} ${isOpen ? s.open : ""}`;
 
-  const userName = "Iryna";
+  const { user } = useAuth();
+  const userName = user?.name;
 
   return (
     <>

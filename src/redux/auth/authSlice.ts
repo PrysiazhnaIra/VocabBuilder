@@ -8,12 +8,7 @@ const initialState = {
   isLoggedIn: false,
 };
 
-interface RehydratePayload {
-  auth?: {
-    token: string | null;
-    user: { name: string | null; email: string | null };
-  };
-}
+
 
 const authSlice = createSlice({
   name: "auth",
@@ -32,18 +27,6 @@ const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase("persist/REHYDRATE", (state, action) => {
-        const rehydrateAction = action as unknown as {
-          payload: RehydratePayload;
-        };
-
-        const persistedAuth = rehydrateAction.payload?.auth;
-        if (persistedAuth?.token) {
-          state.token = persistedAuth.token;
-          state.user = persistedAuth.user || { name: null, email: null };
-          state.isLoggedIn = true;
-        }
-      })
       .addCase(forceLogout, (state) => {
         state.user = { name: null, email: null };
         state.token = null;
